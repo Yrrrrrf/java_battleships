@@ -3,16 +3,18 @@ import java.util.Scanner;
 
 public class Menu {
 
-    int language;
-    static String[][] game_text;
     Scanner sc;
+    Options mainOptions;
 
 
-    public Menu(){}
+    public Menu(){
+        mainOptions = new Options();
+        mainOptions.setGameText();
+    }
     
     public Menu(int language){
-        setLanguage(language);
-        setGameText();
+        mainOptions = new Options(language);
+        mainOptions.setGameText();
     }
 
     /***
@@ -27,17 +29,17 @@ public class Menu {
                 clearScreen();
                 selectLanguage = true;
                 System.out.println("\nSelect language: ");
-                System.out.println("1. English");
-                System.out.println("2. Español");
+                System.out.println("1. Español");
+                System.out.println("2. English");
                 System.out.println("3. Deutsch");
                 System.out.println("4. русский");
 
-                language = sc.nextInt();
-                switch(language){
-                    case 1: language = 1; break;
-                    case 2: language = 2; break;
-                    case 3: language = 3; break;
-                    case 4: language = 4; break;
+                mainOptions.setLanguage(sc.nextInt());
+                switch(mainOptions.getLanguage()){
+                    case 1: mainOptions.setLanguage(1); break;
+                    case 2: mainOptions.setLanguage(2); break;
+                    case 3: mainOptions.setLanguage(3); break;
+                    case 4: mainOptions.setLanguage(4); break;
                     default:
                         System.out.println("Select a valid option");
                         selectLanguage = false;
@@ -52,26 +54,34 @@ public class Menu {
         System.out.flush();  
     }
 
-    private void setGameText() {
-        game_text = new String[2][50];
+    public void mainMenu(){
+    // ! PLAY
+    // ! OPTIONS
+        // ! Change language
+        // ! Change SIZE
+        // ! Sound
+            // ! Effects
+            // ! Music
+    // ! CREDITS
+    // ! EXIT
 
-        game_text[0][0] = "Batalla Naval";
-        game_text[1][0] = "Battleships";
+     //   play()
 
-        game_text[0][2] = "Coloca el tamaño del escenario personalizado";
-        game_text[1][2] = "Set the size of the custom scenario";
-        
-        game_text[0][3] = "Solo puedes colocar números naturales";
-        game_text[1][3] = "You can only insert natural numbers";
+    // ? Achievements
+    // ? Multiplayer
+        // ? BLUETOOTH 
+        // ? ONLINE
+    // ? 
     }
 
-    private void setLanguage(int language){
-        this.language = language;
+    public void provitionalMenu(){
+        clearScreen();
+        System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][1].toUpperCase() + "\n");
+        System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][2]);
+        System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][3]);
+        System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][4]);
+        System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][10]);
     }
-
-    public int getLanguage() {return this.language;}
-
-
 
 
 }

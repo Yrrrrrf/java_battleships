@@ -2,8 +2,7 @@ import java.util.Scanner;
 
 public class Map extends Menu{
     
-    int height;
-    int width;
+    
     private byte[][][] matrix;
     static Scanner sc;
 
@@ -17,13 +16,12 @@ public class Map extends Menu{
 
     public int scenarioSize(){
         int scenarioSize;
-        System.out.println(game_text[languaje][1] + ": ");
+        System.out.println(game_text[language][1] + ": ");
 
         try {
             scenarioSize = sc.nextInt();
         } catch (Exception e) {
-            System.out.println(game_text[languaje][2]);
-            customScenario();
+            System.out.println(game_text[language][2]);
         }
         return scenarioSize;
     }
