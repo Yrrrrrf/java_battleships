@@ -11,6 +11,11 @@ public class Options {
         setLanguage(language);
     }
 
+    public void setDefaultSize(){
+       this.width = 10;
+       this.height = 10;
+    }
+
     public void setGameText() {
         game_text = new String[4][50];
 
@@ -82,9 +87,23 @@ public class Options {
         game_text[3][12] = "";
     }
 
-    public String[][] getGameText(){return game_text;}
-
+    
+    // * SETTERS
     public void setLanguage(int language){this.language = language;}
+    
+    public void setHeight(int height) {this.height = height;}
 
+    public void setWidth(int width) {this.width = width;}
+    
+    
+    // * GETTERS
     public int getLanguage() {return this.language;}
+    
+    public String[][] getGameText(){return game_text;}
+    
+    public int getHeight() {return this.height;}
+    
+    public int getWidth() {return this.width;}
+
+
 }

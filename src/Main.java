@@ -5,7 +5,8 @@ public class Main {
         
         Menu menu = new Menu();
         menu.selectLanguage();
-        menu.provitionalMenu();
+        //menu.provitionalMenu();
+        menu.mainMenu();
     }
 
 }

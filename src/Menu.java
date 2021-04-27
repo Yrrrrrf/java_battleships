@@ -55,7 +55,12 @@ public class Menu {
     }
 
     public void mainMenu(){
+        NewGame();
+        sc = new Scanner(System.in);
     // ! PLAY
+        System.out.println("1. Play");
+        int option = sc.nextInt();
+        if (option == 1) {NewGame();}
     // ! OPTIONS
         // ! Change language
         // ! Change SIZE
@@ -81,6 +86,13 @@ public class Menu {
         System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][3]);
         System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][4]);
         System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][10]);
+    }
+
+    public void NewGame(){
+        mainOptions.setDefaultSize(); 
+        Map map = new Map();
+        // mainOptions.getHeight(), mainOptions.getWidth()
+        map.ShowMap();
     }
 
 
