@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Map",
+            "request": "launch",
+            "mainClass": "Map",
+            "projectName": "BattleshipsProject_cd6518f9"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"

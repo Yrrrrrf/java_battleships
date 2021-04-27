@@ -5,6 +5,7 @@ public class Menu {
 
     Scanner sc;
     Options mainOptions;
+    Game mainGame;
 
 
     public Menu(){
@@ -21,46 +22,50 @@ public class Menu {
      * Inicial language selection menu
      */
     public void selectLanguage() {
+
         sc = new Scanner(System.in);
-        boolean selectLanguage = false;
+        boolean selectLanguage;
+        int userInput;
 
         try {
             do {
-                clearScreen();
-                selectLanguage = true;
                 System.out.println("\nSelect language: ");
                 System.out.println("1. Español");
                 System.out.println("2. English");
                 System.out.println("3. Deutsch");
                 System.out.println("4. русский");
 
-                mainOptions.setLanguage(sc.nextInt());
-                switch(mainOptions.getLanguage()){
-                    case 1: mainOptions.setLanguage(1); break;
-                    case 2: mainOptions.setLanguage(2); break;
-                    case 3: mainOptions.setLanguage(3); break;
-                    case 4: mainOptions.setLanguage(4); break;
+                userInput = sc.nextInt();
+                selectLanguage = true;
+
+                switch(userInput){
+                    case 1: mainOptions.setLanguage(0); break;
+                    case 2: mainOptions.setLanguage(1); break;
+                    case 3: mainOptions.setLanguage(2); break;
+                    case 4: mainOptions.setLanguage(3); break;
                     default:
-                        System.out.println("Select a valid option");
+                        clearScreen();
+                        System.out.println("Please, select a valid option.");
                         selectLanguage = false;
                         break;
                 }
             } while (selectLanguage == false);
-        } catch (InputMismatchException e) {selectLanguage();}
+
+        } catch (InputMismatchException e) {
+            clearScreen();
+            System.out.println("Please, select a valid option.");
+            selectLanguage();
+        }
+        //sc.close();
     }
 
-    public static void clearScreen() {  
+    public void clearScreen() {  
         System.out.print("\033[H\033[2J");  
         System.out.flush();  
     }
 
     public void mainMenu(){
-        NewGame();
-        sc = new Scanner(System.in);
     // ! PLAY
-        System.out.println("1. Play");
-        int option = sc.nextInt();
-        if (option == 1) {NewGame();}
     // ! OPTIONS
         // ! Change language
         // ! Change SIZE
@@ -70,8 +75,6 @@ public class Menu {
     // ! CREDITS
     // ! EXIT
 
-     //   play()
-
     // ? Achievements
     // ? Multiplayer
         // ? BLUETOOTH 
@@ -80,20 +83,46 @@ public class Menu {
     }
 
     public void provitionalMenu(){
-        clearScreen();
-        System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][1].toUpperCase() + "\n");
-        System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][2]);
-        System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][3]);
-        System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][4]);
-        System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][10]);
-    }
+        sc = new Scanner(System.in);
+        boolean selectOption;
+        int userInput;
 
-    public void NewGame(){
-        mainOptions.setDefaultSize(); 
-        Map map = new Map();
-        // mainOptions.getHeight(), mainOptions.getWidth()
-        map.ShowMap();
-    }
+        try {
+            do {
+                System.out.println("\n" + mainOptions.getGameText()[mainOptions.getLanguage()][1].toUpperCase() + "\n");
+                System.out.println("1. " + mainOptions.getGameText()[mainOptions.getLanguage()][2]);
+                System.out.println("2. " + mainOptions.getGameText()[mainOptions.getLanguage()][3]);
+                System.out.println("3. " + mainOptions.getGameText()[mainOptions.getLanguage()][4]);
+                System.out.println("4. " + mainOptions.getGameText()[mainOptions.getLanguage()][10] + "\n");
 
+                userInput = sc.nextInt();
+                selectOption = true;
+                clearScreen();
+
+                switch(userInput){
+                    case 1: 
+                        mainGame = new Game(mainOptions); 
+                        mainGame.setShipsPositions();
+                        break;
+                    case 2: 
+                        break;
+                    case 3: 
+                        break;
+                    case 4: 
+                        break;
+                    default:
+                        System.out.println("Please, select a valid option.");
+                        selectOption = false;
+                        break;
+                }
+            } while (selectOption == false);
+
+        } catch (InputMismatchException e) {
+            clearScreen();
+            System.out.println("Please, select a valid option.");
+            provitionalMenu();
+        }
+        //sc.close();
+    }
 
 }

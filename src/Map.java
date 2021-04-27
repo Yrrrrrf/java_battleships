@@ -1,52 +1,56 @@
 import java.util.Scanner;
 
-public class Map extends Menu{
+public class Map extends Menu{    
     
-    
-    private byte[][][] matrix = new byte[10][1][0];
+    private byte[][][] matrix;
     static Scanner sc;
-
+    Options mapOptions;
 
     public Map() {
     }
 
     public Map(int height, int width) {
+        mapOptions = new Options(height, width);
+        this.matrix = new byte[height][width][2];
+        initializeMap();
     }
 
-    public void setMatrixSize(){
-        
-        this.matrix = new byte[10][10][0];
-    }
 
-    public void scenarioSize(){
-        int scenarioSize;
-        System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][1] + ": ");
-
-        try {
-            scenarioSize = sc.nextInt();
-        } catch (Exception e) {
-            System.out.println(mainOptions.getGameText()[mainOptions.getLanguage()-1][1]);
-        }
-    }
-
-    public void ShowMap(){
-        System.out.println();
-        for (int i = 0; i < 8; i++) {
+    public void showMap(){
+        for (int i = 0; i < mapOptions.getHeight(); i++) {
             System.out.println();
-            for (int j = 0; j < 8; j++) {
+            for (int j = 0; j < mapOptions.getWidth(); j++) {
                 System.out.print(matrix[i][j][0] + " ");
             }
         }
     }
 
+    public void initializeMap(){
+            for (int i = 0; i < mapOptions.getHeight(); i++) {
+                for (int j = 0; j < mapOptions.getWidth(); j++) {
+                    for (int k = 0; k < 2; k++) {
+                        matrix[i][j][k] = 0;
+                    }
+                }
+            } 
+    }
+
+
+    
+    public void setMatrix(byte[][][] matrix) {this.matrix = matrix;}
+    
+    public void setMapOptions(Options mapOptions) {this.mapOptions = mapOptions;}
+    
+
+    public byte[][][] getMatrix() {return this.matrix;}
+    
+    public Options getMapOptions() {return this.mapOptions;}
+
+
     public static void main(String[] args) {
 
-        Options mainOptions = new Options();
-        mainOptions.setDefaultSize();
-
-        Map map = new Map(10, 10);
-        map.setMatrixSize();
-        map.ShowMap();
+        Map map = new Map(10,10);
+        map.showMap();
     }
 
 }

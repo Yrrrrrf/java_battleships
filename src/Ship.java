@@ -1,38 +1,49 @@
+
+    
 public class Ship {
 
     private String name;
-    private byte size;
-    private boolean orientation;
+    private int height;
+    private int width;
+    private boolean vertical;
     private boolean destroyed;
-    private short[] position = new short[2];
-
+    public ShipType type;
 
     public Ship() {}
 
-    public Ship(String name, byte size, boolean orientation){
+    public void setShip(String name, int height, int width, ShipType type){
         setName(name);
-        setSize(size);
-        setOrientation(orientation);
         setDestroyed(false);
+        setHeight(height);
+        setWidth(width);
+        setShipType(type);
+        
     }
 
     public void setName(String name) {this.name = name;}
-
-    public void setSize(byte size) {this.size = size;}
-
-    public void setOrientation(boolean orientation) {this.orientation = orientation;}
+    
+    public void setHeight(int height) {this.height = height;}
+    
+    public void setWidth(int width) {this.width = width;}
+    
+    public void setVertical(boolean vertical) {this.vertical = vertical;}
 
     public void setDestroyed(boolean destroyed) {this.destroyed = destroyed;}
+
+    public void setShipType(ShipType type) {this.type = type;}
 
 
     public String getName() {return name;}
 
-    public byte getSize() {return size;}
-    
-    public boolean getOrientation() {return orientation;}
+    public int getHeight() {return this.height;}
 
-    public boolean getDestroyed() {return destroyed;}
+    public int getWidth() {return this.width;}
     
+    public boolean getVertical() {return this.vertical;}
+
+    public boolean getDestroyed() {return this.destroyed;}
+
+    public ShipType getShipType() {return this.type;}
 
 
 }

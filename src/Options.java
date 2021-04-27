@@ -3,24 +3,26 @@ public class Options {
     int height;
     int width; 
     int language;
-    static String[][] game_text;
+    String[][] game_text;
 
-    Options(){}
-    
-    Options(int language){
-        setLanguage(language);
+    Options(){};
+
+    public Options(int height, int width) {
+        setHeight(height);
+        setWidth(width);
     }
-
-    public void setDefaultSize(){
-       this.width = 10;
-       this.height = 10;
+    
+    public Options(int language) {
+        setLanguage(language);
+        setHeight(10);
+        setWidth(10);
     }
 
     public void setGameText() {
         game_text = new String[4][50];
 
         game_text[0][0] = "Reza Campos Fernando Bryan";     
-        game_text[1][0] = "Leonardo de Jesús Alvaro Rodela";
+        game_text[1][0] = "Álvaro Rodela Leonardo de Jesús";
         game_text[2][0] = "";
         game_text[3][0] = "";
         
@@ -42,7 +44,7 @@ public class Options {
         
         game_text[0][4] = "Creditos";
         game_text[1][4] = "Credits";
-        game_text[2][4] = "Krediten";
+        game_text[2][4] = "Kredite";
         game_text[3][4] = "";
         
         game_text[0][5] = "Cambiar Idioma";
@@ -72,19 +74,59 @@ public class Options {
         
         game_text[0][10] = "Salir";
         game_text[1][10] = "Exit";
-        game_text[2][10] = "Ausgang";
+        game_text[2][10] = "Beenden";
         game_text[3][10] = "";
         // ?-------------------------------------------------------------------------------------------------------------------------------
 
-        game_text[0][11] = "Coloca el tamaño del escenario personalizado";
-        game_text[1][11] = "Set the size of the custom scenario";
-        game_text[2][11] = "Setz die Größe des persönlichen Szenario";
+        // ? SHIP NAMES----------------------------------------------------------------------------------------------------------------
+        game_text[0][11] = "Portaaviones";
+        game_text[1][11] = "Aircraft Carrier";
+        game_text[2][11] = "Flugzeugträger";
         game_text[3][11] = "";
-        
-        game_text[0][12] = "Solo puedes colocar números naturales";
-        game_text[1][12] = "You can only insert natural numbers";
-        game_text[2][12] = "Du kannst nur natürliche Zahlen einsetzen";
+
+        game_text[0][12] = "Crucero";
+        game_text[1][12] = "Cruiser";
+        game_text[2][12] = "Kreuzer";
         game_text[3][12] = "";
+
+        game_text[0][13] = "Destructor";
+        game_text[1][13] = "Destroyer";
+        game_text[2][13] = "Zerstörer";
+        game_text[3][13] = "";
+
+        game_text[0][14] = "Fragata";
+        game_text[1][14] = "Frigate";
+        game_text[2][14] = "Fregatte";
+        game_text[3][14] = "";
+
+        game_text[0][15] = "Buque";
+        game_text[1][15] = "Vessel";
+        game_text[2][15] = "Schiff";
+        game_text[3][15] = "";
+        // ?----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+        game_text[0][16] = "Coloque el tamaño del escenario personalizado:";
+        game_text[1][16] = "Set the size of the custom scenario:";
+        game_text[2][16] = "Setzen Sie die Größe des persönlichen Szenario:";
+        game_text[3][16] = "";
+        
+        game_text[0][17] = "Solo puede colocar números naturales";
+        game_text[1][17] = "You can only insert natural numbers";
+        game_text[2][17] = "Sie können nur natürliche Zahlen einsetzen";
+        game_text[3][17] = "";
+
+        game_text[0][18] = "Introduzca coordenada en X:";
+        game_text[1][18] = "Introduce X coordinate:";
+        game_text[2][18] = "Setzen Sie X Koordinate ein:";
+        game_text[3][18] = "";
+
+        game_text[0][19] = "Introduzca coordenada en Y:";
+        game_text[1][19] = "Introduce Y coordinate:";
+        game_text[2][19] = "Setzen Sie Y Koordinate ein:";
+        game_text[3][19] = "";
     }
 
     
@@ -94,6 +136,8 @@ public class Options {
     public void setHeight(int height) {this.height = height;}
 
     public void setWidth(int width) {this.width = width;}
+
+    public void setGameText(String[][] game_text){this.game_text = game_text;}
     
     
     // * GETTERS
