@@ -26,7 +26,9 @@ public class Ship {
     
     public void setWidth(int width) {this.width = width;}
     
-    public void setVertical(boolean vertical) {this.vertical = vertical;}
+    public void setVertical(boolean vertical) {
+        this.vertical = vertical;  
+    }
 
     public void setDestroyed(boolean destroyed) {this.destroyed = destroyed;}
 

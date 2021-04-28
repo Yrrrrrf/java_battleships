@@ -24,10 +24,10 @@ public class Menu {
     public void selectLanguage() {
 
         sc = new Scanner(System.in);
-        boolean selectLanguage;
         int userInput;
-
+        
         try {
+            boolean selectLanguage;
             do {
                 System.out.println("\nSelect language: ");
                 System.out.println("1. Español");
@@ -56,7 +56,6 @@ public class Menu {
             System.out.println("Please, select a valid option.");
             selectLanguage();
         }
-        //sc.close();
     }
 
     public void clearScreen() {  
@@ -97,14 +96,14 @@ public class Menu {
 
                 userInput = sc.nextInt();
                 selectOption = true;
-                clearScreen();
+                //clearScreen();
 
                 switch(userInput){
                     case 1: 
-                        mainGame = new Game(mainOptions); 
-                        mainGame.setShipsPositions();
+                        mainGame = new Game(mainOptions);
+                        mainGame.requestShipPosition();
                         break;
-                    case 2: 
+                    case 2:
                         break;
                     case 3: 
                         break;
@@ -122,7 +121,6 @@ public class Menu {
             System.out.println("Please, select a valid option.");
             provitionalMenu();
         }
-        //sc.close();
     }
 
 }
