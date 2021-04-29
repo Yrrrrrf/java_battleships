@@ -96,7 +96,6 @@ public class Menu {
 
                 userInput = sc.nextInt();
                 selectOption = true;
-                //clearScreen();
 
                 switch(userInput){
                     case 1: 

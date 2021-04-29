@@ -76,9 +76,9 @@ public class Options {
         game_text[1][10] = "Exit";
         game_text[2][10] = "Beenden";
         game_text[3][10] = "";
-        // ?-------------------------------------------------------------------------------------------------------------------------------
+        // ?--------------------------------------------------------------------------------------------------------------------------------------
 
-        // ? SHIP NAMES--------------------------------------------------------------------------------------------------------------------
+        // ? SHIP NAMES---------------------------------------------------------------------------------------------------------------------------
         game_text[0][11] = "Portaaviones";
         game_text[1][11] = "Aircraft Carrier";
         game_text[2][11] = "Flugzeugträger";
@@ -103,10 +103,9 @@ public class Options {
         game_text[1][15] = "Vessel";
         game_text[2][15] = "Schiff";
         game_text[3][15] = "";
-        // ?----------------------------------------------------------------------------------------------------------------------------------
-        
-        
-        // ? COORDINATES MESSAGES-------------------------------------------------------------------------------------------------------------
+        // ?--------------------------------------------------------------------------------------------------------------------------------------
+
+        // ? COORDINATES MESSAGES-----------------------------------------------------------------------------------------------------------------
         game_text[0][16] = "Coloque el tamaño del escenario personalizado:";
         game_text[1][16] = "Set the size of the custom scenario:";
         game_text[2][16] = "Setzen Sie die Größe des persönlichen Szenario:";
@@ -117,9 +116,9 @@ public class Options {
         game_text[2][17] = "Sie können nur natürliche Zahlen einsetzen";
         game_text[3][17] = "";
 
-        game_text[0][18] = "Orientación: \nVertical -> 1 ; Horizontal -> 2";
-        game_text[1][18] = "Orientation \nVertical -> 1 ; Horizontal -> 2";
-        game_text[2][18] = "Orientation \nSenkrecht -> 1 ; Waagerecht ->2";
+        game_text[0][18] = "Orientación:    Vertical -> 1 ; Horizontal -> 2";
+        game_text[1][18] = "Orientation:    Vertical -> 1 ; Horizontal -> 2";
+        game_text[2][18] = "Orientation:    Senkrecht -> 1 ; Waagerecht ->2";
         game_text[3][18] = "";
         
         game_text[0][19] = "Introduzca coordenada en X:";
@@ -134,10 +133,10 @@ public class Options {
         
         // ?----------------------------------------------------------------------------------------------------------------------------------
     
-        game_text[0][21] = "\nVas a colocar el ";
-        game_text[1][21] = "\nYou are going to put ";
-        game_text[2][21] = "\n";
-        game_text[3][21] = "\n";
+        game_text[0][21] = "\n\nVas a colocar el ";
+        game_text[1][21] = "\n\nYou are going to put ";
+        game_text[2][21] = "\n\n";
+        game_text[3][21] = "\n\n";
         
         // *ERROR MESSAGE
         game_text[0][22] = "Por favor, introduzca un dato válido.";

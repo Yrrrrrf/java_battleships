@@ -1,5 +1,3 @@
-
-    
 public class Ship {
 
     private String name;
@@ -8,6 +6,7 @@ public class Ship {
     private boolean vertical;
     private boolean destroyed;
     public ShipType type;
+
 
     public Ship() {}
 
@@ -20,15 +19,14 @@ public class Ship {
         
     }
 
+
     public void setName(String name) {this.name = name;}
     
     public void setHeight(int height) {this.height = height;}
     
     public void setWidth(int width) {this.width = width;}
     
-    public void setVertical(boolean vertical) {
-        this.vertical = vertical;  
-    }
+    public void setVertical(boolean vertical) {this.vertical = vertical;  }
 
     public void setDestroyed(boolean destroyed) {this.destroyed = destroyed;}
 
@@ -46,6 +44,5 @@ public class Ship {
     public boolean getDestroyed() {return this.destroyed;}
 
     public ShipType getShipType() {return this.type;}
-
 
 }

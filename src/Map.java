@@ -35,7 +35,6 @@ public class Map extends Menu{
             } 
     }
 
-
     
     public void setMatrix(byte[][][] matrix) {this.matrix = matrix;}
     
@@ -45,12 +44,5 @@ public class Map extends Menu{
     public byte[][][] getMatrix() {return this.matrix;}
     
     public Options getMapOptions() {return this.mapOptions;}
-
-
-    public static void main(String[] args) {
-
-        Map map = new Map(10,10);
-        map.showMap();
-    }
 
 }

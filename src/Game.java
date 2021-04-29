@@ -1,6 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.Random;
+//import java.util.Random;
 
 public class Game {
  
@@ -23,38 +23,30 @@ public class Game {
         // ! PUT THE VALUE, IT CAN´T READ THE gameOptions.get Height/Width () methods
         gameMap = new Map(10, 10);
 
-        gameShips = new Ship[7];
-        for (int i = 0; i < 7; i++) {
+        gameShips = new Ship[1];
+        for (int i = 0; i < 1; i++) {
             gameShips[i] = new Ship();
         }
-
         gameShips[0].setShip(gameOptions.getGameText()[gameOptions.getLanguage()][11], 5, 1, ShipType.CARRIER);
+        /*
         gameShips[1].setShip(gameOptions.getGameText()[gameOptions.getLanguage()][12], 4, 1, ShipType.CRUISER);
         gameShips[2].setShip(gameOptions.getGameText()[gameOptions.getLanguage()][12], 4, 1, ShipType.CRUISER);
         gameShips[3].setShip(gameOptions.getGameText()[gameOptions.getLanguage()][13], 3, 1, ShipType.DESTROYER);
         gameShips[4].setShip(gameOptions.getGameText()[gameOptions.getLanguage()][14], 2, 1, ShipType.FRIGATE);
         gameShips[5].setShip(gameOptions.getGameText()[gameOptions.getLanguage()][14], 2, 1, ShipType.FRIGATE);
         gameShips[6].setShip(gameOptions.getGameText()[gameOptions.getLanguage()][15], 1, 1, ShipType.VESSEL);
+        */
     }
 
 
-    public void clearScreen() {  
+    public void clearScreen() {
         System.out.print("\033[H\033[2J");  
         System.out.flush();  
     }
 
-
     public boolean fixShipPosition(Ship ship, int x, int y){
-
         int availableSpace = 0;
         byte shipValue = 0;
-        int auxVertical;
-
-        if(ship.getVertical()){
-            auxVertical = ship.getHeight();
-            ship.setHeight(ship.getWidth());
-            ship.setWidth(auxVertical);
-        }
 
         for (int i = x; i < x + ship.getWidth(); i++) {
             for (int j = y; j < y + ship.getHeight(); j++) {
@@ -62,14 +54,10 @@ public class Game {
                 if (gameMap.getMatrix()[i-1][j-1][0] == 0) {
                     availableSpace++;
                 }
-                else {
-                    break;
-                }
             }
         }
         
         if (availableSpace == ship.getHeight() * ship.getWidth()) {
-
             switch (ship.getShipType()) {
                 case VESSEL:     shipValue = 1; break;
                 case FRIGATE:    shipValue = 2; break;
@@ -77,16 +65,14 @@ public class Game {
                 case CRUISER:    shipValue = 4; break;
                 case CARRIER:    shipValue = 5; break;
             }
-    
-            for (int i = x; i < x + ship.getWidth(); i++) {
-                for (int j = y; j < y + ship.getHeight(); j++) {
+            for (int i = y; i < y + ship.getWidth(); i++) {
+                for (int j = x; j < x + ship.getHeight(); j++) {
                     gameMap.getMatrix()[i-1][j-1][0] = shipValue;
                 }
             }
         } else {
             return false;
         }
-
         return true;
     }
     
@@ -104,32 +90,38 @@ public class Game {
 
     public void requestShipPosition() {
         byte x, y;
-        boolean validPosition;
         boolean vertical;
+        int auxVertical;
 
         gameMap.showMap();
 
         for (int i = 0; i < gameShips.length; i++) {
             System.out.println(gameOptions.getGameText()[gameOptions.getLanguage()][21] + gameShips[i].getName());
 
+            // SETTING RIGHT ORIENTATION
             vertical = requestOrientation();
             gameShips[i].setVertical(vertical);
-            System.out.println(vertical);
+            
+            if(gameShips[i].getVertical()){
+                auxVertical = gameShips[i].getHeight();
+                gameShips[i].setHeight(gameShips[i].getWidth());
+                gameShips[i].setWidth(auxVertical);
+            }
 
+            // SETTING RIGHT COORDINATES
             System.out.println(gameOptions.getGameText()[gameOptions.getLanguage()][19]);
             x = setCoordinate();
             System.out.println(gameOptions.getGameText()[gameOptions.getLanguage()][20]);
             y = setCoordinate();
 
-            validPosition = fixShipPosition(gameShips[i], x, y);
             
-            if (validPosition == true) {
-                gameMap.showMap();
+
+            if (gameShips[i].getHeight() + x > 11) {
+                System.out.println("Estás pendejo morro");
             } else {
-                clearScreen();
-                System.out.println(gameOptions.getGameText()[gameOptions.getLanguage()][22]);
-                i--;
+                fixShipPosition(gameShips[i], x, y);
             }
+            gameMap.showMap();
         }
     }
 
@@ -138,6 +130,7 @@ public class Game {
         boolean vertical = false;
         sc = new Scanner(System.in);
         int orientation;
+
         try {
             do {
                 System.out.println(gameOptions.getGameText()[gameOptions.getLanguage()][18]);
@@ -158,9 +151,9 @@ public class Game {
     private byte setCoordinate(){
         sc = new Scanner(System.in);
         byte coordinate = 0;
+        boolean posiblePlace;
         
         try { 
-            boolean posiblePlace;
             do {
                 coordinate = sc.nextByte();
                 posiblePlace = true;
@@ -169,16 +162,14 @@ public class Game {
                     System.out.println(gameOptions.getGameText()[gameOptions.getLanguage()][23]);
                     posiblePlace = false;
                 };
-                //coordinate = (byte) (coordinate - 1);
             } while (posiblePlace == false);
-
         } catch (InputMismatchException e) {
             System.out.println(gameOptions.getGameText()[gameOptions.getLanguage()][22]);
             setCoordinate();
         }
         return coordinate;
     }
-    
+
 
 
 
