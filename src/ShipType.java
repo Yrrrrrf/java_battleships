@@ -1,3 +1,4 @@
+// All contstants of the ships information
 public enum ShipType{
     VESSEL      (1, 1, 1011),
     FRIGATE     (2, 1, 1012),
@@ -9,6 +10,12 @@ public enum ShipType{
     int width;
     int hash;
     
+    /**
+     * Assign th lenght, width and hast to all the ShipType ENUMS 
+     * @param length
+     * @param width
+     * @param hash
+     */
     ShipType(int length, int width, int hash){
         this.length = length;
         this.width = width;
@@ -16,16 +23,12 @@ public enum ShipType{
 
     }
 
-    public int getLength() {
-        return length;
-    }
 
-    public int getWidth() {
-        return width;
-    }
+    // * GETTERS
+    public int getLength() {return length;}
 
-    public int getHash() {
-        return hash;
-    }
+    public int getWidth() {return width;}
+
+    public int getHash() {return hash;}
 
 }

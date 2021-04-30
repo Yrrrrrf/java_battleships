@@ -11,6 +11,12 @@ public class Ship {
 
     public Ship() {}
 
+
+    /**
+     * Set the gived parameters to create the Ship object that will be used in the Game() method
+     * @param language
+     * @param shipType
+     */
     public void setShip(int language, ShipType shipType){
         setType(shipType);
         setName(language);

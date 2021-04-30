@@ -10,6 +10,14 @@ public class Game {
     Map randomMap;
     Scanner sc;
 
+    /**
+     * Start a new game this the Options that the user gives (using the Options class that can the cahnged in the Main Menu)
+     * <p>
+     * Player vs Machine
+     * <p>
+     * Machine only functions with a Random number integer generator. For now. Upcoming: "detection ship and fire algorithm"
+     * @param mainOptions
+     */
     public Game(Options mainOptions) {
         
         this.gameOptions = new Options(mainOptions.getSize());
@@ -35,7 +43,12 @@ public class Game {
     }
 
 
-    public void requestShipPosition() {
+    /**
+     * Puts all the ships in the map
+     * <p>
+     * Calls other functions to get only valid positons 
+     */
+    public void setShipPosition() {
         byte x, y;
         boolean validPosition;
 
@@ -67,6 +80,14 @@ public class Game {
     }
 
 
+    // ! STILL A BUG ZONE
+    // ! ----------------------------------------------------------------------------------------------------------------------------
+    /**
+     * Change the Ship orientation
+     * <p>
+     * Auxiliar function, always called after requestVertical
+     * @param ship
+     */
     private void setShipOrientation(Ship ship){
         boolean isVertical;
         int auxVertical;
@@ -82,6 +103,12 @@ public class Game {
     }
 
 
+    /**
+     * Ask to the user the orientation of the Ship 
+     * <p>
+     * It will go into a loop until the user puts a value 1(true = Vertica) or 2(false = horizontal) 
+     * @see Scanned Value == 1  || Scanned Value == 0
+     */
     private boolean requestVertical() {
         boolean isVertical = false;
         sc = new Scanner(System.in);
@@ -102,8 +129,15 @@ public class Game {
         } catch (Exception e) {isVertical = requestVertical();}
         return isVertical;
     }
+    // ! ----------------------------------------------------------------------------------------------------------------------------
 
 
+    /**
+     * Ask a integer value that cannot be less than 0 or greater than Map Size
+     * <p>
+     * It will go into a loop until the user puts a value that meets the parameters
+     * @since 0 < Scanned Value < Map Size
+     */
     private byte setCoordinate(){
         sc = new Scanner(System.in);
         byte coordinate = 0;
@@ -128,7 +162,17 @@ public class Game {
     }
 
 
-    public boolean evaluateShipPosition(Map map, Ship ship, int x, int y){
+    /**
+     * Evaluates if the ship can be in the gived position taking in account the Orientation
+     * <p>
+     * Auxiliar function, always called before adjustMapMatrix()
+     * @param map
+     * @param ship
+     * @param x
+     * @param y
+     * @return AvaiableSpace
+     */
+    private boolean evaluateShipPosition(Map map, Ship ship, int x, int y){
         int availableSpace = 0;
         boolean confirmedShip = false;
         
@@ -151,7 +195,16 @@ public class Game {
     }
     
 
-    public void adjustMapMatrix(Map map, Ship ship, int x, int y){
+    /**
+     * Changes the Map Matrix to write the ShipValue in it
+     * <p>
+     * Always called before adjustMapMatrix()
+     * @param map
+     * @param ship
+     * @param x
+     * @param y
+     */
+    private void adjustMapMatrix(Map map, Ship ship, int x, int y){
         for (int i = x; i < x + ship.getWidth(); i++) {
             for (int j = y; j < y + ship.getLength(); j++) {
                 // the value of "hash - 1010" is a one-digit integer unique for each ship type, thus, appropriate to show in the matrix.
@@ -161,22 +214,12 @@ public class Game {
     }
 
 
-    // * SETTERS
-    public void setGameOptions(Options gameOptions){
-        this.gameOptions.setLanguage(gameOptions.getLanguage());
-        this.gameOptions.setSize(gameOptions.getSize());
-    }
-
-    // * GETTERS
-    public Options getGameOptions(){return gameOptions;}
-    
-
-    public void clearScreen() {
-        System.out.print("\033[H\033[2J");  
-        System.out.flush();  
-    }
+    // ! ASSIGN SPACE TO CREATE AND TEST NEW METHODS() ------------------------------------------------------------------------------------------------------------------
 
 
+    /**
+     * Generates random numbers to that the machine will use to put their ships in the map
+     */
     public void setRandomShips(){
         Random random = new Random();
         int[] values = new int[3];
@@ -207,6 +250,46 @@ public class Game {
         }
         clearScreen();
         randomMap.showMap();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ! ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    
+    // * SETTERS
+    public void setGameOptions(Options gameOptions){
+        this.gameOptions.setLanguage(gameOptions.getLanguage());
+        this.gameOptions.setSize(gameOptions.getSize());
+    }
+
+
+    // * GETTERS
+    public Options getGameOptions(){return gameOptions;}
+    
+
+    /**
+     * Clear all the code of the termianl written before
+     */
+    public void clearScreen() {
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();  
     }
 
 }

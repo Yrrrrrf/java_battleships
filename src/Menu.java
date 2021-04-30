@@ -16,8 +16,8 @@ public class Menu {
         mainOptions = new Options(size);
     }
 
-    /***
-     * Inicial language selection menu
+    /**
+     * Initial languaje selecction menu
      */
     public void selectLanguage() {
 
@@ -43,7 +43,7 @@ public class Menu {
                     case 4: mainOptions.setLanguage(3); break;
                     default:
                         clearScreen();
-                        System.out.println("Please, select a valid option.");
+                        System.out.println(GameText.gameText[0][27]);
                         selectLanguage = false;
                         break;
                 }
@@ -51,11 +51,14 @@ public class Menu {
 
         } catch (InputMismatchException e) {
             clearScreen();
-            System.out.println("Please, select a valid option.");
+            System.out.println(GameText.gameText[0][27]);
             selectLanguage();
         }
     }
 
+    /**
+     * Clear all the code of the termianl written before
+     */
     public void clearScreen() {  
         System.out.print("\033[H\033[2J");  
         System.out.flush();  
@@ -82,18 +85,24 @@ public class Menu {
                 switch(userInput){
                     case 1: 
                         mainGame = new Game(mainOptions);
-                        mainGame.requestShipPosition();
+                        mainGame.setShipPosition();
                         break;
                     case 2:
                         mainGame = new Game(mainOptions);
                         mainGame.setRandomShips();
                         break;
-                    case 3: 
+                    case 3:
+                        System.out.println(GameText.gameText[0][0]);
+                        System.out.println(GameText.gameText[1][0]);
+                        // * ADD A GO BACK SCANNER
+                        System.out.println("\n" + GameText.gameText[2][0]);
+
                         break;
-                    case 4: 
+                    case 4:
+                        System.out.println(GameText.gameText[3][0]);
                         break;
                     default:
-                        System.out.println("Please, select a valid option.");
+                        System.out.println(GameText.gameText[0][27]);
                         selectOption = false;
                         break;
                 }
@@ -101,7 +110,7 @@ public class Menu {
 
         } catch (InputMismatchException e) {
             clearScreen();
-            System.out.println("Please, select a valid option.");
+            System.out.println(GameText.gameText[0][27]);
             provitionalMenu();
         }
     }
