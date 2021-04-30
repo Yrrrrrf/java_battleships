@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch ShipTypes",
+            "request": "launch",
+            "mainClass": "ShipTypes",
+            "projectName": "BattleshipsProject_cd6518f9"
+        },
+        {
+            "type": "java",
+            "name": "Launch ShipType$ShipTypes",
+            "request": "launch",
+            "mainClass": "ShipType$ShipTypes",
+            "projectName": "BattleshipsProject_cd6518f9"
+        },
+        {
+            "type": "java",
             "name": "Launch Map",
             "request": "launch",
             "mainClass": "Map",
@@ -22,7 +36,9 @@
             "name": "Launch Main",
             "request": "launch",
             "mainClass": "Main",
-            "projectName": "BattleshipsProject_cd6518f9"
+            "projectName": "BattleshipsProject_cd6518f9",
+            "noDebug": true,
+            "__progressId": "6082bf8d-991f-472d-abe5-ffe98e186d71"
         },
         {
             "type": "java",

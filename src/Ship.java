@@ -1,48 +1,58 @@
 public class Ship {
 
     private String name;
-    private int height;
-    private int width;
     private boolean vertical;
     private boolean destroyed;
     public ShipType type;
+    private int length;
+    private int width;
+    private int hash;
 
 
     public Ship() {}
 
-    public void setShip(String name, int height, int width, ShipType type){
-        setName(name);
+    public void setShip(int language, ShipType shipType){
+        setType(shipType);
+        setName(language);
         setDestroyed(false);
-        setHeight(height);
-        setWidth(width);
-        setShipType(type);
-        
+        setVertical(true);
     }
-
-
-    public void setName(String name) {this.name = name;}
     
-    public void setHeight(int height) {this.height = height;}
+    
+    // * SETTEERS
+    public void setName(int language) {
+            this.name = GameText.gameText[language][hash-1000];
+    }
+    
+    public void setVertical(boolean vertical) {this.vertical = vertical;}
+    
+    public void setDestroyed(boolean destroyed) {this.destroyed = destroyed;}
+        
+    public void setLength(int length) {this.length = length;}    
     
     public void setWidth(int width) {this.width = width;}
     
-    public void setVertical(boolean vertical) {this.vertical = vertical;  }
+    public void setHash(int hash) {this.hash = hash;}
+    
+    public void setType(ShipType type) {
+        setLength(type.getLength());
+        setWidth(type.getWidth());
+        setHash(type.getHash());
+    }
 
-    public void setDestroyed(boolean destroyed) {this.destroyed = destroyed;}
 
-    public void setShipType(ShipType type) {this.type = type;}
+    // * GETTERS
+    public String getName() {return this.name;}
 
+    public boolean isVertical() {return this.vertical;}
 
-    public String getName() {return name;}
+    public boolean isDestroyed() {return this.destroyed;}
 
-    public int getHeight() {return this.height;}
-
+    public int getLength() {return this.length;}
+    
     public int getWidth() {return this.width;}
     
-    public boolean getVertical() {return this.vertical;}
-
-    public boolean getDestroyed() {return this.destroyed;}
-
-    public ShipType getShipType() {return this.type;}
-
+    public int getHash() {return this.hash;}
+    
+    public ShipType getType() {return this.type;}
 }

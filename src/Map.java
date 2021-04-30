@@ -4,31 +4,32 @@ public class Map extends Menu{
     
     private byte[][][] matrix;
     static Scanner sc;
-    Options mapOptions;
+    int mapSize;
 
     public Map() {
     }
 
-    public Map(int height, int width) {
-        mapOptions = new Options(height, width);
-        this.matrix = new byte[height][width][2];
+    public Map(int mapSize) {
+        this.mapSize = mapSize;
+        this.matrix = new byte[mapSize][mapSize][2];
         initializeMap();
     }
 
 
+    // ! ADD THE PARAMETER TO PRINT THE PLAYER OR THE MACHINE MAP
     public void showMap(){
-        for (int i = 0; i < mapOptions.getHeight(); i++) {
+        for (int j = 0; j < mapSize; j++) {
             System.out.println();
-            for (int j = 0; j < mapOptions.getWidth(); j++) {
-                System.out.print(matrix[i][j][0] + " ");
+            for (int i = 0; i < mapSize; i++) {
+                System.out.printf("%-3d", matrix[i][j][0]);
             }
         }
-        System.out.println("\n");
+        System.out.println();
     }
 
     public void initializeMap(){
-            for (int i = 0; i < mapOptions.getHeight(); i++) {
-                for (int j = 0; j < mapOptions.getWidth(); j++) {
+            for (int i = 0; i < mapSize; i++) {
+                for (int j = 0; j < mapSize; j++) {
                     for (int k = 0; k < 2; k++) {
                         matrix[i][j][k] = 0;
                     }
@@ -39,11 +40,11 @@ public class Map extends Menu{
     
     public void setMatrix(byte[][][] matrix) {this.matrix = matrix;}
     
-    public void setMapOptions(Options mapOptions) {this.mapOptions = mapOptions;}
-    
+    public void setMapSize(int mapSize) {this.mapSize = mapSize;}
+
 
     public byte[][][] getMatrix() {return this.matrix;}
     
-    public Options getMapOptions() {return this.mapOptions;}
+    public int getMapSize() {return this.mapSize;}
 
 }

@@ -10,12 +10,10 @@ public class Menu {
 
     public Menu(){
         mainOptions = new Options();
-        mainOptions.setGameText();
     }
     
-    public Menu(int language){
-        mainOptions = new Options(language);
-        mainOptions.setGameText();
+    public Menu(int size){
+        mainOptions = new Options(size);
     }
 
     /***
@@ -63,36 +61,19 @@ public class Menu {
         System.out.flush();  
     }
 
-    public void mainMenu(){
-    // ! PLAY
-    // ! OPTIONS
-        // ! Change language
-        // ! Change SIZE
-        // ! Sound
-            // ! Effects
-            // ! Music
-    // ! CREDITS
-    // ! EXIT
-
-    // ? Achievements
-    // ? Multiplayer
-        // ? BLUETOOTH 
-        // ? ONLINE
-    // ? 
-    }
-
     public void provitionalMenu(){
+
         sc = new Scanner(System.in);
         boolean selectOption;
         int userInput;
 
         try {
             do {
-                System.out.println("\n" + mainOptions.getGameText()[mainOptions.getLanguage()][1].toUpperCase() + "\n");
-                System.out.println("1. " + mainOptions.getGameText()[mainOptions.getLanguage()][2]);
-                System.out.println("2. " + mainOptions.getGameText()[mainOptions.getLanguage()][3]);
-                System.out.println("3. " + mainOptions.getGameText()[mainOptions.getLanguage()][4]);
-                System.out.println("4. " + mainOptions.getGameText()[mainOptions.getLanguage()][10] + "\n");
+                System.out.println("\n"  +  GameText.gameText[mainOptions.getLanguage()][1].toUpperCase() + "\n");
+                System.out.println("1. " +  GameText.gameText[mainOptions.getLanguage()][2]);
+                System.out.println("2. " +  GameText.gameText[mainOptions.getLanguage()][3]);
+                System.out.println("3. " +  GameText.gameText[mainOptions.getLanguage()][4]);
+                System.out.println("4. " +  GameText.gameText[mainOptions.getLanguage()][10] + "\n");
 
                 userInput = sc.nextInt();
                 selectOption = true;
@@ -120,6 +101,26 @@ public class Menu {
             System.out.println("Please, select a valid option.");
             provitionalMenu();
         }
+    }
+
+
+    public void mainMenu(){
+        // ! PLAY
+        // ! OPTIONS
+            // ! Change language
+            // ! Change SIZE
+            // ! Sound
+                // ! Effects
+                // ! Music
+        // ! CREDITS
+        // ! EXIT
+    
+        // ? Achievements
+        // ? Multiplayer
+            // ? BLUETOOTH 
+            // ? ONLINE
+        // ?
+        
     }
 
 }
