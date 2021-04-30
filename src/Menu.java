@@ -71,7 +71,8 @@ public class Menu {
             do {
                 System.out.println("\n"  +  GameText.gameText[mainOptions.getLanguage()][1].toUpperCase() + "\n");
                 System.out.println("1. " +  GameText.gameText[mainOptions.getLanguage()][2]);
-                System.out.println("2. " +  GameText.gameText[mainOptions.getLanguage()][3]);
+                System.out.println("2. Set computer ships");
+                // System.out.println("2. " +  GameText.gameText[mainOptions.getLanguage()][3]);
                 System.out.println("3. " +  GameText.gameText[mainOptions.getLanguage()][4]);
                 System.out.println("4. " +  GameText.gameText[mainOptions.getLanguage()][10] + "\n");
 
@@ -84,6 +85,8 @@ public class Menu {
                         mainGame.requestShipPosition();
                         break;
                     case 2:
+                        mainGame = new Game(mainOptions);
+                        mainGame.setRandomShips();
                         break;
                     case 3: 
                         break;

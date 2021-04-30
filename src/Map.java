@@ -1,9 +1,6 @@
-import java.util.Scanner;
-
 public class Map extends Menu{    
     
     private byte[][][] matrix;
-    static Scanner sc;
     int mapSize;
 
     public Map() {
@@ -18,23 +15,23 @@ public class Map extends Menu{
 
     // ! ADD THE PARAMETER TO PRINT THE PLAYER OR THE MACHINE MAP
     public void showMap(){
-        for (int j = 0; j < mapSize; j++) {
+        for (int i = 0; i < mapSize; i++) {
             System.out.println();
-            for (int i = 0; i < mapSize; i++) {
-                System.out.printf("%-3d", matrix[i][j][0]);
+            for (int j = 0; j < mapSize; j++) {
+                System.out.printf("%-3d", matrix[j][i][0]);
             }
         }
-        System.out.println();
+        System.out.println("\n");
     }
 
     public void initializeMap(){
-            for (int i = 0; i < mapSize; i++) {
-                for (int j = 0; j < mapSize; j++) {
-                    for (int k = 0; k < 2; k++) {
-                        matrix[i][j][k] = 0;
-                    }
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                for (int k = 0; k < 2; k++) {
+                    matrix[i][j][k] = 0;
                 }
-            } 
+            }
+        } 
     }
 
     

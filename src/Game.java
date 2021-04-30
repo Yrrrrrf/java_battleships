@@ -1,12 +1,13 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
-//import java.util.Random;
+import java.util.Random;
 
 public class Game {
  
+    Options gameOptions;
     Ship[] gameShips;
     Map gameMap;
-    Options gameOptions;
+    Map randomMap;
     Scanner sc;
 
     public Game(Options mainOptions) {
@@ -15,10 +16,11 @@ public class Game {
         setGameOptions(gameOptions);
 
         gameMap = new Map(gameOptions.getSize());
+        randomMap = new Map(gameOptions.getSize());
 
-        gameMap.showMap();
+        // gameMap.showMap();
 
-        gameShips = new Ship[3];
+        gameShips = new Ship[7];
         for (int i = 0; i < gameShips.length; i++) {
             gameShips[i] = new Ship();
         }
@@ -26,10 +28,10 @@ public class Game {
         gameShips[0].setShip(gameOptions.getLanguage(), ShipType.CARRIER);
         gameShips[1].setShip(gameOptions.getLanguage(), ShipType.CRUISER);
         gameShips[2].setShip(gameOptions.getLanguage(), ShipType.CRUISER);
-        // gameShips[3].setShip(gameOptions.getLanguage(), ShipType.DESTROYER);
-        // gameShips[4].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
-        // gameShips[5].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
-        // gameShips[6].setShip(gameOptions.getLanguage(), ShipType.VESSEL);
+        gameShips[3].setShip(gameOptions.getLanguage(), ShipType.DESTROYER);
+        gameShips[4].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
+        gameShips[5].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
+        gameShips[6].setShip(gameOptions.getLanguage(), ShipType.VESSEL);
     }
 
 
@@ -51,10 +53,10 @@ public class Game {
             System.out.println(GameText.gameText[gameOptions.getLanguage()][25]);
             y = setCoordinate();
             
-            validPosition = evaluateShipPosition(gameShips[i], x, y);
+            validPosition = evaluateShipPosition(gameMap, gameShips[i], x, y);
 
             if (validPosition == true) {
-                adjustMapMatrix(gameShips[i], x, y);
+                adjustMapMatrix(gameMap, gameShips[i], x, y);
                 gameMap.showMap();
             } else {
                 clearScreen();
@@ -126,17 +128,17 @@ public class Game {
     }
 
 
-    public boolean evaluateShipPosition(Ship ship, int x, int y){
+    public boolean evaluateShipPosition(Map map, Ship ship, int x, int y){
         int availableSpace = 0;
         boolean confirmedShip = false;
         
-        // -1 is caused by the matrix that starts the count in 0
-        if(x + ship.getWidth() - 1 >= gameMap.getMapSize() || y + ship.getLength() - 1 > gameMap.getMapSize()){
+        // -1 is caused because the ship width/height should be counted from the value of x/y henceforth and not after it.
+        if(x - 1 + ship.getWidth() > map.getMapSize() || y - 1 + ship.getLength() > map.getMapSize()){
             System.out.println(GameText.gameText[gameOptions.getLanguage()][29]);
         } else {
             for (int i = x; i < x + ship.getWidth(); i++) {
                 for (int j = y; j < y + ship.getLength(); j++) {
-                    if (gameMap.getMatrix()[i-1][j-1][0] == 0) {
+                    if (map.getMatrix()[i-1][j-1][0] == 0) {
                         availableSpace++;
                     }
                 }
@@ -149,11 +151,11 @@ public class Game {
     }
     
 
-    public void adjustMapMatrix(Ship ship, int x, int y){
+    public void adjustMapMatrix(Map map, Ship ship, int x, int y){
         for (int i = x; i < x + ship.getWidth(); i++) {
             for (int j = y; j < y + ship.getLength(); j++) {
-                // hash-1010 cause the value of the hash
-                gameMap.getMatrix()[i-1][j-1][0] = (byte)(ship.getHash() - 1010);
+                // the value of "hash - 1010" is a one-digit integer unique for each ship type, thus, appropriate to show in the matrix.
+                map.getMatrix()[i-1][j-1][0] = (byte)(ship.getHash() - 1010);
             }
         }
     }
@@ -174,5 +176,37 @@ public class Game {
         System.out.flush();  
     }
 
+
+    public void setRandomShips(){
+        Random random = new Random();
+        int[] values = new int[3];
+        boolean validPosition = false;
+
+        for(int i = 0; i < gameShips.length; i++){
+
+            values[0] = random.nextInt(10) + 1;
+    
+            if(values[0] > 5){                                                                         // VERTICAL
+                gameShips[i].setVertical(true);
+                values[1] = random.nextInt(10) + 1;                                                     // X value
+                values[2] = random.nextInt(randomMap.getMapSize() - gameShips[i].getLength() + 1) + 1;  // Y value
+
+            } else {                                                                                    // HORIZONTAL
+                gameShips[i].setVertical(false);
+                values[1] = random.nextInt(randomMap.getMapSize() - gameShips[i].getLength() + 1) + 1;   // X value
+                values[2] = random.nextInt(10) + 1;                                                     // Y value
+            }
+    
+            validPosition = evaluateShipPosition(randomMap, gameShips[i], values[1], values[2]);
+
+            if (validPosition == true) {
+                adjustMapMatrix(randomMap, gameShips[i], values[1], values[2]);
+            } else {
+                i--;
+            }    
+        }
+        clearScreen();
+        randomMap.showMap();
+    }
 
 }
