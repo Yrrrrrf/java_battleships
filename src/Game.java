@@ -30,7 +30,6 @@ public class Game {
         // gameShips[4].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
         // gameShips[5].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
         // gameShips[6].setShip(gameOptions.getLanguage(), ShipType.VESSEL);
-        
     }
 
 
@@ -132,7 +131,7 @@ public class Game {
         boolean confirmedShip = false;
         
         // -1 is caused by the matrix that starts the count in 0
-        if(x + ship.getWidth() - 1 >= gameMap.getMapSize() && y + ship.getLength() - 1 > gameMap.getMapSize()){
+        if(x + ship.getWidth() - 1 >= gameMap.getMapSize() || y + ship.getLength() - 1 > gameMap.getMapSize()){
             System.out.println(GameText.gameText[gameOptions.getLanguage()][29]);
         } else {
             for (int i = x; i < x + ship.getWidth(); i++) {
@@ -165,7 +164,6 @@ public class Game {
         this.gameOptions.setLanguage(gameOptions.getLanguage());
         this.gameOptions.setSize(gameOptions.getSize());
     }
-    
 
     // * GETTERS
     public Options getGameOptions(){return gameOptions;}

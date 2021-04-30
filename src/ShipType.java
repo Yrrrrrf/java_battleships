@@ -28,5 +28,4 @@ public enum ShipType{
         return hash;
     }
 
-
 }
