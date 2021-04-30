@@ -28,7 +28,7 @@ public class Game {
 
         // gameMap.showMap();
 
-        gameShips = new Ship[7];
+        gameShips = new Ship[3];
         for (int i = 0; i < gameShips.length; i++) {
             gameShips[i] = new Ship();
         }
@@ -36,10 +36,10 @@ public class Game {
         gameShips[0].setShip(gameOptions.getLanguage(), ShipType.CARRIER);
         gameShips[1].setShip(gameOptions.getLanguage(), ShipType.CRUISER);
         gameShips[2].setShip(gameOptions.getLanguage(), ShipType.CRUISER);
-        gameShips[3].setShip(gameOptions.getLanguage(), ShipType.DESTROYER);
-        gameShips[4].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
-        gameShips[5].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
-        gameShips[6].setShip(gameOptions.getLanguage(), ShipType.VESSEL);
+        // gameShips[3].setShip(gameOptions.getLanguage(), ShipType.DESTROYER);
+        // gameShips[4].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
+        // gameShips[5].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
+        // gameShips[6].setShip(gameOptions.getLanguage(), ShipType.VESSEL);
     }
 
 
@@ -51,14 +51,16 @@ public class Game {
     public void setShipPosition() {
         byte x, y;
         boolean validPosition;
+        boolean isVertical;
 
         clearScreen();
         for (int i = 0; i < gameShips.length; i++) {
             System.out.println(GameText.gameText[gameOptions.getLanguage()][26] + gameShips[i].getName());
 
             gameMap.showMap();
-            
-            setShipOrientation(gameShips[i]);
+            // isVertical assign the value of reqwuestVertical
+           isVertical = requestVertical();
+           setShipOrientation(gameShips[i], isVertical);
 
             // SETTING RIGHT COORDINATES
             System.out.println(GameText.gameText[gameOptions.getLanguage()][24]);
@@ -73,6 +75,8 @@ public class Game {
                 gameMap.showMap();
             } else {
                 clearScreen();
+                // To change a second time the value of a Ship, in case you put it in Vertical and in a position without space
+                if (isVertical == true) {setShipOrientation(gameShips[i], isVertical);}
                 System.out.println(GameText.gameText[gameOptions.getLanguage()][28]);
                 i--;
             }
@@ -80,19 +84,16 @@ public class Game {
     }
 
 
-    // ! STILL A BUG ZONE
-    // ! ----------------------------------------------------------------------------------------------------------------------------
     /**
      * Change the Ship orientation
      * <p>
-     * Auxiliar function, always called after requestVertical
+     * Need a Ship that will be changed, and an isVertical value, gived by the 
      * @param ship
+     * @param isVertical
      */
-    private void setShipOrientation(Ship ship){
-        boolean isVertical;
+    private void setShipOrientation(Ship ship, boolean isVertical){
         int auxVertical;
-        
-        isVertical = requestVertical();
+
         ship.setVertical(isVertical);
         
         if(!ship.isVertical()){
@@ -107,6 +108,8 @@ public class Game {
      * Ask to the user the orientation of the Ship 
      * <p>
      * It will go into a loop until the user puts a value 1(true = Vertica) or 2(false = horizontal) 
+     * <p>
+     * Auxiliar function, always called after setShipOrientation
      * @see Scanned Value == 1  || Scanned Value == 0
      */
     private boolean requestVertical() {
@@ -129,7 +132,6 @@ public class Game {
         } catch (Exception e) {isVertical = requestVertical();}
         return isVertical;
     }
-    // ! ----------------------------------------------------------------------------------------------------------------------------
 
 
     /**
@@ -215,11 +217,11 @@ public class Game {
 
 
     // ! ASSIGN SPACE TO CREATE AND TEST NEW METHODS() ------------------------------------------------------------------------------------------------------------------
-
-
     /**
      * Generates random numbers to that the machine will use to put their ships in the map
      */
+    // ! Seas mamón xd está funcion es un cagadero de código :v
+    // ! Revisala xd Cambié un poco el comportamiento de setShipOrientation() y requestVertical()
     public void setRandomShips(){
         Random random = new Random();
         int[] values = new int[3];
