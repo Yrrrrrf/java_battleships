@@ -23,6 +23,7 @@ public class Map extends Menu{
                 System.out.print(matrix[i][j][0] + " ");
             }
         }
+        System.out.println("\n");
     }
 
     public void initializeMap(){

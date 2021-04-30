@@ -133,10 +133,10 @@ public class Options {
         
         // ?----------------------------------------------------------------------------------------------------------------------------------
     
-        game_text[0][21] = "\n\nVas a colocar el ";
-        game_text[1][21] = "\n\nYou are going to put ";
-        game_text[2][21] = "\n\n";
-        game_text[3][21] = "\n\n";
+        game_text[0][21] = "Vas a colocar el ";
+        game_text[1][21] = "You are going to put ";
+        game_text[2][21] = "";
+        game_text[3][21] = "";
         
         // *ERROR MESSAGE
         game_text[0][22] = "Por favor, introduzca un dato válido.";

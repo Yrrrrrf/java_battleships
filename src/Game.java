@@ -45,32 +45,37 @@ public class Game {
     }
 
     public boolean fixShipPosition(Ship ship, int x, int y){
-        int availableSpace = 0;
-        byte shipValue = 0;
-
-        for (int i = x; i < x + ship.getWidth(); i++) {
-            for (int j = y; j < y + ship.getHeight(); j++) {
-
-                if (gameMap.getMatrix()[i-1][j-1][0] == 0) {
-                    availableSpace++;
-                }
-            }
-        }
         
-        if (availableSpace == ship.getHeight() * ship.getWidth()) {
-            switch (ship.getShipType()) {
-                case VESSEL:     shipValue = 1; break;
-                case FRIGATE:    shipValue = 2; break;
-                case DESTROYER:  shipValue = 3; break;
-                case CRUISER:    shipValue = 4; break;
-                case CARRIER:    shipValue = 5; break;
-            }
-            for (int i = y; i < y + ship.getWidth(); i++) {
-                for (int j = x; j < x + ship.getHeight(); j++) {
-                    gameMap.getMatrix()[i-1][j-1][0] = shipValue;
+        byte shipValue = 0;
+        int availableSpace = 0;
+        
+        try {
+            for (int i = x; i < x + ship.getWidth(); i++) {
+                for (int j = y; j < y + ship.getHeight(); j++) {
+                    if (gameMap.getMatrix()[i-1][j-1][0] == 0) {
+                        availableSpace++;
+                    }
                 }
             }
-        } else {
+
+            if (availableSpace == ship.getHeight() * ship.getWidth()) {
+                switch (ship.getShipType()) {
+                    case VESSEL:     shipValue = 1; break;
+                    case FRIGATE:    shipValue = 2; break;
+                    case DESTROYER:  shipValue = 3; break;
+                    case CRUISER:    shipValue = 4; break;
+                    case CARRIER:    shipValue = 5; break;
+                }
+                for (int i = y; i < y + ship.getWidth(); i++) {
+                    for (int j = x; j < x + ship.getHeight(); j++) {
+                        gameMap.getMatrix()[i-1][j-1][0] = shipValue;
+                    }
+                }
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
             return false;
         }
         return true;
@@ -92,12 +97,15 @@ public class Game {
         byte x, y;
         boolean vertical;
         int auxVertical;
+        boolean validPosition;
 
-        gameMap.showMap();
+        
 
         for (int i = 0; i < gameShips.length; i++) {
             System.out.println(gameOptions.getGameText()[gameOptions.getLanguage()][21] + gameShips[i].getName());
 
+            gameMap.showMap();
+            
             // SETTING RIGHT ORIENTATION
             vertical = requestOrientation();
             gameShips[i].setVertical(vertical);
@@ -114,14 +122,28 @@ public class Game {
             System.out.println(gameOptions.getGameText()[gameOptions.getLanguage()][20]);
             y = setCoordinate();
 
-            
 
-            if (gameShips[i].getHeight() + x > 11) {
-                System.out.println("Estás pendejo morro");
+            // ! NEED SOME FIXES
+            // PINTING THE SHIP IN THE MAP, JUST IN CASE THAT IT CAN
+            
+            /*
+            if ((gameShips[i].getHeight() + x > 10 && gameShips[i].getWidth() + y > 10)) {
+                System.out.println("The ship cant be in that position ");
+                System.out.println("Try it again");
+                i--;
             } else {
                 fixShipPosition(gameShips[i], x, y);
+                gameMap.showMap();
             }
-            gameMap.showMap();
+            */
+            validPosition = fixShipPosition(gameShips[i], x, y);
+            if (validPosition == true) {
+                gameMap.showMap();
+            } else {
+                clearScreen();
+                System.out.println(gameOptions.getGameText()[gameOptions.getLanguage()][22]);
+                i--;
+            }
         }
     }
 
@@ -169,9 +191,6 @@ public class Game {
         }
         return coordinate;
     }
-
-
-
 
 
 }
