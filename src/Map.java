@@ -19,7 +19,6 @@ public class Map extends Menu{
     }
 
 
-    // ! ADD THE PARAMETER TO PRINT THE PLAYER OR THE MACHINE MAP
     /**
      * Print the gameMap
      * <p>
@@ -30,6 +29,23 @@ public class Map extends Menu{
             System.out.println();
             for (int j = 0; j < mapSize; j++) {
                 System.out.printf("%-3d", matrix[j][i][0]);
+            }
+        }
+    }
+
+
+    /**
+     * Shows the ships and the shooted missiles maps in the same line
+     */
+    public void showTwoMaps(){
+        for (int i = 0; i < mapSize; i++) {
+            System.out.println();
+            for (int j = 0; j < mapSize; j++) {
+                System.out.printf("%-3d", matrix[j][i][0]);
+            }
+            System.out.print("              ");
+            for (int j = 0; j < mapSize; j++) {
+                System.out.printf("%-3d", matrix[j][i][1]);
             }
         }
     }

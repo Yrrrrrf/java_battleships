@@ -6,6 +6,7 @@ public class Options {
 
     public Options() {}
     
+    
     /** 
      * Assign the dimentions gived by the Menu(int size) method to the gameMap[][][]
      * @param size

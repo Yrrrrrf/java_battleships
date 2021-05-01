@@ -1,10 +1,11 @@
 // All contstants of the ships information
 public enum ShipType{
-    VESSEL      (1, 1, 1011),
-    FRIGATE     (2, 1, 1012),
-    DESTROYER   (3, 1, 1013),
-    CRUISER     (4, 1, 1014),
-    CARRIER     (5, 1, 1015);
+
+    VESSEL      (1, 1, 1000),
+    FRIGATE     (2, 1, 1001),
+    DESTROYER   (3, 1, 1002),
+    CRUISER     (4, 1, 1003),
+    CARRIER     (5, 1, 1004);
 
     int length;
     int width;
@@ -12,7 +13,7 @@ public enum ShipType{
 
     
     /**
-     * Assign th lenght, width and hast to all the ShipType ENUMS 
+     * Assign th lenght, width and hash to all the ShipType ENUMS 
      * @param length
      * @param width
      * @param hash

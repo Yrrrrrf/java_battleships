@@ -1,9 +1,9 @@
 public class Ship {
 
     private String name;
+    public ShipType type;
     private boolean vertical;
     private boolean destroyed;
-    public ShipType type;
     private int length;
     private int width;
     private int hash;
@@ -26,9 +26,7 @@ public class Ship {
     
     
     // * SETTEERS
-    public void setName(int language) {
-            this.name = GameText.gameText[language][hash-1000];
-    }
+    public void setName(int language) {this.name = GameText.shipText[language][hash-999];} 
     
     public void setVertical(boolean vertical) {this.vertical = vertical;}
     

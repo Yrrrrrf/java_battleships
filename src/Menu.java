@@ -12,9 +12,11 @@ public class Menu {
         mainOptions = new Options();
     }
     
+    
     public Menu(int size){
         mainOptions = new Options(size);
     }
+
 
     /**
      * Initial languaje selecction menu
@@ -43,7 +45,7 @@ public class Menu {
                     case 4: mainOptions.setLanguage(3); break;
                     default:
                         clearScreen();
-                        System.out.println(GameText.gameText[0][27]);
+                        System.out.println(GameText.errorText[1][0]); // "Please, select a valid option"
                         selectLanguage = false;
                         break;
                 }
@@ -51,7 +53,7 @@ public class Menu {
 
         } catch (InputMismatchException e) {
             clearScreen();
-            System.out.println(GameText.gameText[0][27]);
+            System.out.println(GameText.errorText[1][0]); // "Please, select a valid option"
             selectLanguage();
         }
     }
@@ -72,12 +74,12 @@ public class Menu {
 
         try {
             do {
-                System.out.println("\n"  +  GameText.gameText[mainOptions.getLanguage()][1].toUpperCase() + "\n");
-                System.out.println("1. " +  GameText.gameText[mainOptions.getLanguage()][2]);
+                System.out.println("\n"  +  GameText.menuText[mainOptions.getLanguage()][1].toUpperCase() + "\n"); // "BATTLESHIPS"
+                System.out.println("1. " +  GameText.menuText[mainOptions.getLanguage()][2]); // "Play"
                 System.out.println("2. Set computer ships");
-                // System.out.println("2. " +  GameText.gameText[mainOptions.getLanguage()][3]);
-                System.out.println("3. " +  GameText.gameText[mainOptions.getLanguage()][4]);
-                System.out.println("4. " +  GameText.gameText[mainOptions.getLanguage()][10] + "\n");
+                // System.out.println("2. " +  GameText.menuText[mainOptions.getLanguage()][3]); // "Options"
+                System.out.println("3. " +  GameText.menuText[mainOptions.getLanguage()][4]); // "Credits"
+                System.out.println("4. " +  GameText.menuText[mainOptions.getLanguage()][5] + "\n"); // "Exit"
 
                 userInput = sc.nextInt();
                 selectOption = true;
@@ -90,19 +92,14 @@ public class Menu {
                         break;
                     case 2:
                         mainGame = new Game(mainOptions);
+                        mainGame.setRandomShips();
                         break;
                     case 3:
-                        System.out.println(GameText.gameText[0][0]);
-                        System.out.println(GameText.gameText[1][0]);
-                        // * ADD A GO BACK SCANNER
-                        System.out.println("\n" + GameText.gameText[2][0]);
-
                         break;
                     case 4:
-                        System.out.println(GameText.gameText[3][0]);
                         break;
                     default:
-                        System.out.println(GameText.gameText[0][27]);
+                        System.out.println(GameText.errorText[1][0]); // "Please, select a valid option"
                         selectOption = false;
                         break;
                 }
@@ -110,7 +107,7 @@ public class Menu {
 
         } catch (InputMismatchException e) {
             clearScreen();
-            System.out.println(GameText.gameText[0][27]);
+            System.out.println(GameText.errorText[1][0]); // "Please, select a valid option"
             provitionalMenu();
         }
     }

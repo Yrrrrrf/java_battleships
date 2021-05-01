@@ -6,6 +6,7 @@ public class Game {
  
     Options gameOptions;
     Ship[] gameShips;
+    Missile[] gameMissiles;
     Map gameMap;
     Map randomMap;
     Scanner sc;
@@ -41,6 +42,16 @@ public class Game {
         gameShips[4].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
         gameShips[5].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
         gameShips[6].setShip(gameOptions.getLanguage(), ShipType.VESSEL);
+
+        // Initialize the missiles that will be used in the game
+        gameMissiles = new Missile[3];
+        for (int i = 0; i < gameShips.length; i++) {
+            gameMissiles[i] = new Missile();
+        }
+        gameMissiles[0].setMissile(gameOptions.getLanguage(), MissileType.SIMPLE);
+        gameMissiles[1].setMissile(gameOptions.getLanguage(), MissileType.CROSS);
+        gameMissiles[2].setMissile(gameOptions.getLanguage(), MissileType.SMALLT);
+
     }
 
 
@@ -56,7 +67,7 @@ public class Game {
 
         clearScreen();
         for (int i = 0; i < gameShips.length; i++) {
-            System.out.println(GameText.gameText[gameOptions.getLanguage()][26] + gameShips[i].getName());
+            System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][0] + gameShips[i].getName()); // "You're going to put " + ship.name
 
             gameMap.showMap();
             // isVertical assign the value of reqwuestVertical
@@ -64,9 +75,9 @@ public class Game {
            setShipOrientation(gameShips[i], isVertical);
 
             // SETTING RIGHT COORDINATES
-            System.out.println(GameText.gameText[gameOptions.getLanguage()][24]);
+            System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][3]); // "Introduce X coordinate"
             x = setCoordinate();
-            System.out.println(GameText.gameText[gameOptions.getLanguage()][25]);
+            System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][4]); // "Introduce Y coordinate"
             y = setCoordinate();
             
             validPosition = evaluateShipPosition(gameMap, gameShips[i], x, y);
@@ -78,7 +89,7 @@ public class Game {
                 clearScreen();
                 // To change a second time the value of a Ship, in case you put it in Vertical and in a position without space
                 if (isVertical == true) {setShipOrientation(gameShips[i], isVertical);}
-                System.out.println(GameText.gameText[gameOptions.getLanguage()][28]);
+                System.out.println(GameText.errorText[gameOptions.getLanguage()][0]); // "Please, select a valid option"
                 i--;
             }
         }
@@ -92,12 +103,6 @@ public class Game {
      * @param ship
      * @param isVertical
      */
-    // ! LE AGREGUÉ OTRO PARAMETRO, QUE LE VA A DAR  requestertical()
-    // ! A request vertical no le cambie nada, solo le agregué que devuelva el valor de boolean 
-    // saca el discord weee, o te pegan? xD
-    //jajaja
-    // correlo we
-// yA WE, SACA EL DISCORD
     private void setShipOrientation(Ship ship, boolean isVertical){
         int auxVertical;
 
@@ -120,20 +125,20 @@ public class Game {
      * @see Scanned Value == 1  || Scanned Value == 0
      */
     private boolean requestVertical() {
-        boolean isVertical = false;
         sc = new Scanner(System.in);
+        boolean isVertical = false;
         int orientation;
 
         try {
             do {
-                System.out.println("\n" + GameText.gameText[gameOptions.getLanguage()][23]);
+                System.out.println("\n" + GameText.coordinatesText[gameOptions.getLanguage()][2]);  // "Orientation: Vertical = 1 ; Horizontal = 2"
                 orientation = sc.nextInt();
                 if (orientation == 1) {
                     isVertical = true;
                 } else if (orientation == 2) {
                     isVertical = false;
                 } else {
-                    System.out.println(GameText.gameText[gameOptions.getLanguage()][27]);
+                    System.out.println(GameText.errorText[gameOptions.getLanguage()][0]); // "Please, select a valid option"
                 }
             } while (orientation != 1 && orientation != 2);
         } catch (Exception e) {isVertical = requestVertical();}
@@ -157,14 +162,14 @@ public class Game {
                 coordinate = sc.nextByte();
 
                 if (coordinate < 1 || coordinate > gameMap.getMapSize()) {
-                    System.out.println(GameText.gameText[gameOptions.getLanguage()][27]);
+                    System.out.println(GameText.errorText[gameOptions.getLanguage()][0]); // "Please, select a valid option"
                     validCoordinate = false;
                 } else {
                     validCoordinate = true;
                 }
             } while (validCoordinate == false);
         } catch (InputMismatchException e) {
-            System.out.println(GameText.gameText[gameOptions.getLanguage()][27]);
+            System.out.println(GameText.errorText[gameOptions.getLanguage()][0]); // "Please, select a valid option"
             coordinate = setCoordinate();
         }
         return coordinate;
@@ -187,7 +192,7 @@ public class Game {
         
         // -1 is caused because the ship width/height should be counted from the value of x/y henceforth and not after it.
         if(x - 1 + ship.getWidth() > map.getMapSize() || y - 1 + ship.getLength() > map.getMapSize()){
-            System.out.println(GameText.gameText[gameOptions.getLanguage()][29]);
+            System.out.println(ship.getName() + GameText.errorText[gameOptions.getLanguage()][2]); // ship.name + " out of the map limits"
         } else {
             for (int i = x; i < x + ship.getWidth(); i++) {
                 for (int j = y; j < y + ship.getLength(); j++) {
@@ -217,7 +222,7 @@ public class Game {
         for (int i = x; i < x + ship.getWidth(); i++) {
             for (int j = y; j < y + ship.getLength(); j++) {
                 // the value of "hash - 1010" is a one-digit integer unique for each ship type, thus, appropriate to show in the matrix.
-                map.getMatrix()[i-1][j-1][0] = (byte)(ship.getHash() - 1010);
+                map.getMatrix()[i-1][j-1][0] = (byte)(ship.getHash() - 999);
             }
         }
     }
@@ -236,15 +241,15 @@ public class Game {
             values[0] = random.nextInt(10) + 1;
             System.out.println(values[0]);
     
-            if(values[0] > 5){                                                                         // VERTICAL
+            if(values[0] > 5){                                                                           // VERTICAL
                 setShipOrientation(gameShips[i], true);
-                values[1] = random.nextInt(10) + 1;                                                     // X value
-                values[2] = random.nextInt(randomMap.getMapSize() - gameShips[i].getLength() + 1) + 1;  // Y value
+                values[1] = random.nextInt(10) + 1;                                                      // X value
+                values[2] = random.nextInt(randomMap.getMapSize() - gameShips[i].getLength() + 1) + 1;   // Y value
 
-            } else {                                                                                    // HORIZONTAL
+            } else {                                                                                     // HORIZONTAL
                 setShipOrientation(gameShips[i], false);
                 values[1] = random.nextInt(randomMap.getMapSize() - gameShips[i].getLength() + 1) + 1;   // X value
-                values[2] = random.nextInt(10) + 1;                                                     // Y value
+                values[2] = random.nextInt(10) + 1;                                                      // Y value
             }
     
             validPosition = evaluateShipPosition(randomMap, gameShips[i], values[1], values[2]);
@@ -256,31 +261,116 @@ public class Game {
             }
         }
         clearScreen();
-        randomMap.showMap();
+        randomMap.showTwoMaps();
     }
 
 
     // ! ASSIGN SPACE TO CREATE AND TEST NEW METHODS() ------------------------------------------------------------------------------------------------------------------
 
 
+    /**
+     * Display a basic Missile menu that shows all the missiles and if it´s ready or if it´s ready to shoot now
+     */
+    public void missileMenu(){
+        sc = new Scanner(System.in);
+        int userSelection;
+        int x, y;
+
+        System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][6]); // "Select missile: "
+        for(int i = 0; i < gameMissiles.length; i++){
+            if(gameMissiles[i].isReady()){
+                System.out.println(i+1 + ". " + GameText.missileText[gameOptions.getLanguage()][i] + GameText.missileText[gameOptions.getLanguage()][29]);
+            } else {
+                System.out.println(i+1 + ". " + GameText.missileText[gameOptions.getLanguage()][i] + GameText.missileText[gameOptions.getLanguage()][28]);
+            }
+        }
+        userSelection = selectMissile();
+        x = setCoordinate();
+        y = setCoordinate();
+
+        shootMissile(userSelection, randomMap, gameMap, x, y);
+    }
+
+    /**
+     * Ask to select a missile and return it´s value only if it´s ready to shoot
+     * @return selectedMissile
+     */
+    public int selectMissile() {
+        sc = new Scanner(System.in);
+        boolean availableMissile = false;
+        int selectedMissile = 0;
+
+        try{
+            do {
+                selectedMissile = sc.nextInt();
+                if (selectedMissile <= gameMissiles.length || selectedMissile > 1) {
+                    for (int i = 0; i < gameMissiles.length; i++) {   
+                        if ((gameMissiles[i].getHash() - 1999) == selectedMissile) {
+                            if (gameMissiles[i].isReady() == true) {
+                                availableMissile = true;
+                                break;
+                            }
+                        } else {
+                            System.out.println(GameText.missileText[gameOptions.getLanguage()][i] + GameText.missileText[gameOptions.getLanguage()][28].toUpperCase());
+                        }
+                    }
+                } else {
+                    System.out.println(GameText.errorText[gameOptions.getLanguage()][0]);
+                }
+            } while (availableMissile == false);
+        }
+        catch (Exception e) {
+            selectedMissile = selectMissile();            
+        }
+        return selectedMissile;
+    }
+
+    
+    /**
+     * Switch the turn between the player an the machine
+     */
+    public void swtichTurns(){
+
+    }
+
+
+    public void shootMissile(Missile missile, Map rivalMap, Map shootMap, int x, int y){
+
+        // ! LÓGICA CHIDA
+        // Game map or machine map
+        for (int i = x - 2; i < x + 2; i++) {
+            for (int j = y - 2; j < y + 2; j++) {
+                if(i < 1 || j < 1 || i > gameMap.getMapSize() || j > gameMap.getMapSize()){
+                    if (shootMap.getMatrix()[i][j][1] == 0) {
+                        shootMap.getMatrix()[i][j][1] = (byte)missile.getEffectZone()[i+2][j+2];
+                    }
+                }
+            }
+        }
 
 
 
+        int[][] damage = new int[5][5];
+        
+        for(int i = x - 2; i < x + 2; i++){
+            for(int j = y - 2; j < y - 2; j++){
+                if(i < 1 || j < 1 || i > gameMap.getMapSize() || j > gameMap.getMapSize()){
+                    damage[i][j] = 0;
+                } else if (rivalMap.getMatrix()[i][j][0] != 0){
+                    damage[i][j] = 1;
+                } else {
+                    damage [i][j] = 0;
+                }
+            }
+        }
 
 
 
+    }
 
 
 
-
-
-
-
-
-
-
-
-    // ! ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // ! ----------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     
     // * SETTERS
@@ -301,5 +391,6 @@ public class Game {
         System.out.print("\033[H\033[2J");  
         System.out.flush();  
     }
+
 
 }
