@@ -86,10 +86,10 @@ public class Menu {
                     case 1: 
                         mainGame = new Game(mainOptions);
                         mainGame.setShipPosition();
+                        mainGame.setRandomShips();
                         break;
                     case 2:
                         mainGame = new Game(mainOptions);
-                        mainGame.setRandomShips();
                         break;
                     case 3:
                         System.out.println(GameText.gameText[0][0]);
@@ -106,7 +106,7 @@ public class Menu {
                         selectOption = false;
                         break;
                 }
-            } while (selectOption == false);
+            } while (selectOption == false || userInput == 3);
 
         } catch (InputMismatchException e) {
             clearScreen();

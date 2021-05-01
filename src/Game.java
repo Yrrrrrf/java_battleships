@@ -10,6 +10,7 @@ public class Game {
     Map randomMap;
     Scanner sc;
 
+    
     /**
      * Start a new game this the Options that the user gives (using the Options class that can the cahnged in the Main Menu)
      * <p>
@@ -28,7 +29,7 @@ public class Game {
 
         // gameMap.showMap();
 
-        gameShips = new Ship[3];
+        gameShips = new Ship[7];
         for (int i = 0; i < gameShips.length; i++) {
             gameShips[i] = new Ship();
         }
@@ -36,10 +37,10 @@ public class Game {
         gameShips[0].setShip(gameOptions.getLanguage(), ShipType.CARRIER);
         gameShips[1].setShip(gameOptions.getLanguage(), ShipType.CRUISER);
         gameShips[2].setShip(gameOptions.getLanguage(), ShipType.CRUISER);
-        // gameShips[3].setShip(gameOptions.getLanguage(), ShipType.DESTROYER);
-        // gameShips[4].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
-        // gameShips[5].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
-        // gameShips[6].setShip(gameOptions.getLanguage(), ShipType.VESSEL);
+        gameShips[3].setShip(gameOptions.getLanguage(), ShipType.DESTROYER);
+        gameShips[4].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
+        gameShips[5].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
+        gameShips[6].setShip(gameOptions.getLanguage(), ShipType.VESSEL);
     }
 
 
@@ -91,6 +92,12 @@ public class Game {
      * @param ship
      * @param isVertical
      */
+    // ! LE AGREGUÉ OTRO PARAMETRO, QUE LE VA A DAR  requestertical()
+    // ! A request vertical no le cambie nada, solo le agregué que devuelva el valor de boolean 
+    // saca el discord weee, o te pegan? xD
+    //jajaja
+    // correlo we
+// yA WE, SACA EL DISCORD
     private void setShipOrientation(Ship ship, boolean isVertical){
         int auxVertical;
 
@@ -216,12 +223,9 @@ public class Game {
     }
 
 
-    // ! ASSIGN SPACE TO CREATE AND TEST NEW METHODS() ------------------------------------------------------------------------------------------------------------------
     /**
      * Generates random numbers to that the machine will use to put their ships in the map
      */
-    // ! Seas mamón xd está funcion es un cagadero de código :v
-    // ! Revisala xd Cambié un poco el comportamiento de setShipOrientation() y requestVertical()
     public void setRandomShips(){
         Random random = new Random();
         int[] values = new int[3];
@@ -230,14 +234,15 @@ public class Game {
         for(int i = 0; i < gameShips.length; i++){
 
             values[0] = random.nextInt(10) + 1;
+            System.out.println(values[0]);
     
             if(values[0] > 5){                                                                         // VERTICAL
-                gameShips[i].setVertical(true);
+                setShipOrientation(gameShips[i], true);
                 values[1] = random.nextInt(10) + 1;                                                     // X value
                 values[2] = random.nextInt(randomMap.getMapSize() - gameShips[i].getLength() + 1) + 1;  // Y value
 
             } else {                                                                                    // HORIZONTAL
-                gameShips[i].setVertical(false);
+                setShipOrientation(gameShips[i], false);
                 values[1] = random.nextInt(randomMap.getMapSize() - gameShips[i].getLength() + 1) + 1;   // X value
                 values[2] = random.nextInt(10) + 1;                                                     // Y value
             }
@@ -248,11 +253,14 @@ public class Game {
                 adjustMapMatrix(randomMap, gameShips[i], values[1], values[2]);
             } else {
                 i--;
-            }    
+            }
         }
         clearScreen();
         randomMap.showMap();
     }
+
+
+    // ! ASSIGN SPACE TO CREATE AND TEST NEW METHODS() ------------------------------------------------------------------------------------------------------------------
 
 
 

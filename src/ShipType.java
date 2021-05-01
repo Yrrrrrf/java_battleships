@@ -9,6 +9,7 @@ public enum ShipType{
     int length;
     int width;
     int hash;
+
     
     /**
      * Assign th lenght, width and hast to all the ShipType ENUMS 

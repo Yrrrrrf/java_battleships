@@ -32,8 +32,8 @@ public class Map extends Menu{
                 System.out.printf("%-3d", matrix[j][i][0]);
             }
         }
-        System.out.println("\n");
     }
+
 
     /**
      * Assign 0 to all values of the initial map
