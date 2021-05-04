@@ -26,7 +26,7 @@ public class Ship {
     
     
     // * SETTEERS
-    public void setName(int language) {this.name = GameText.shipText[language][hash-999];} 
+    public void setName(int language) {this.name = GameText.shipText[language][hash-1000];}
     
     public void setVertical(boolean vertical) {this.vertical = vertical;}
     

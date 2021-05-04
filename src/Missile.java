@@ -15,22 +15,26 @@ public class Missile {
      * @param missileType
      */
     public void setMissile(int language, MissileType type){
-        setName(language);
         setType(type);
+        setName(language);
+        setEffectZone(type);
     }
 
     
     // * SETTEERS
-    public void setName(int language) {this.name = GameText.gameText[language][hash - 2000];}
-    
-    public void setType(MissileType type) {this.type = type;}
+    public void setName(int language) {this.name = GameText.missileText[language][hash - 2000];}
     
     public void setHash(int hash) {this.hash = hash;}
-
+    
     public void setReady(boolean ready) {this.ready = ready;}
-
+    
     public void setEffectZone(MissileType type) {this.effectZone = type.getEffectZone();}
-
+    
+    public void setType(MissileType type) {
+        this.type = type;
+        setHash(type.hash);
+    }
+    
 
     // * GETTERS
     public String getName() {return this.name;}
@@ -42,6 +46,5 @@ public class Missile {
     public boolean isReady() {return this.ready;}
 
     public int[][] getEffectZone() {return this.effectZone;}
-
 
 }

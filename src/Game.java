@@ -11,7 +11,7 @@ public class Game {
     Map randomMap;
     Scanner sc;
 
-    
+
     /**
      * Start a new game this the Options that the user gives (using the Options class that can the cahnged in the Main Menu)
      * <p>
@@ -22,7 +22,7 @@ public class Game {
      */
     public Game(Options mainOptions) {
         
-        this.gameOptions = new Options(mainOptions.getSize());
+        this.gameOptions = new Options(mainOptions.getSize(), mainOptions.getLanguage());
         setGameOptions(gameOptions);
 
         gameMap = new Map(gameOptions.getSize());
@@ -30,22 +30,24 @@ public class Game {
 
         // gameMap.showMap();
 
-        gameShips = new Ship[7];
+        // Initialize the ships that will be used in the game
+        gameShips = new Ship[2];
         for (int i = 0; i < gameShips.length; i++) {
             gameShips[i] = new Ship();
         }
-        
         gameShips[0].setShip(gameOptions.getLanguage(), ShipType.CARRIER);
         gameShips[1].setShip(gameOptions.getLanguage(), ShipType.CRUISER);
+        /*
         gameShips[2].setShip(gameOptions.getLanguage(), ShipType.CRUISER);
         gameShips[3].setShip(gameOptions.getLanguage(), ShipType.DESTROYER);
         gameShips[4].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
         gameShips[5].setShip(gameOptions.getLanguage(), ShipType.FRIGATE);
         gameShips[6].setShip(gameOptions.getLanguage(), ShipType.VESSEL);
+        */
 
         // Initialize the missiles that will be used in the game
         gameMissiles = new Missile[3];
-        for (int i = 0; i < gameShips.length; i++) {
+        for (int i = 0; i < gameMissiles.length; i++) {
             gameMissiles[i] = new Missile();
         }
         gameMissiles[0].setMissile(gameOptions.getLanguage(), MissileType.SIMPLE);
@@ -241,15 +243,15 @@ public class Game {
             values[0] = random.nextInt(10) + 1;
             System.out.println(values[0]);
     
-            if(values[0] > 5){                                                                           // VERTICAL
+            if(values[0] > 5){                                                                               // VERTICAL
                 setShipOrientation(gameShips[i], true);
-                values[1] = random.nextInt(10) + 1;                                                      // X value
-                values[2] = random.nextInt(randomMap.getMapSize() - gameShips[i].getLength() + 1) + 1;   // Y value
+                values[1] = random.nextInt(10) + 1;                                                          // X value
+                values[2] = random.nextInt(randomMap.getMapSize() - gameShips[i].getLength() + 1) + 1;      // Y value
 
-            } else {                                                                                     // HORIZONTAL
+            } else {                                                                                         // HORIZONTAL
                 setShipOrientation(gameShips[i], false);
-                values[1] = random.nextInt(randomMap.getMapSize() - gameShips[i].getLength() + 1) + 1;   // X value
-                values[2] = random.nextInt(10) + 1;                                                      // Y value
+                values[1] = random.nextInt(randomMap.getMapSize() - gameShips[i].getLength() + 1) + 1;      // X value
+                values[2] = random.nextInt(10) + 1;                                                         // Y value
             }
     
             validPosition = evaluateShipPosition(randomMap, gameShips[i], values[1], values[2]);
@@ -265,31 +267,8 @@ public class Game {
     }
 
 
-    // ! ASSIGN SPACE TO CREATE AND TEST NEW METHODS() ------------------------------------------------------------------------------------------------------------------
+    // ! ASSIGNED SPACE TO CREATE AND TEST NEW METHODS() ------------------------------------------------------------------------------------------------------------------
 
-
-    /**
-     * Display a basic Missile menu that shows all the missiles and if it´s ready or if it´s ready to shoot now
-     */
-    public void missileMenu(){
-        sc = new Scanner(System.in);
-        int userSelection;
-        int x, y;
-
-        System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][6]); // "Select missile: "
-        for(int i = 0; i < gameMissiles.length; i++){
-            if(gameMissiles[i].isReady()){
-                System.out.println(i+1 + ". " + GameText.missileText[gameOptions.getLanguage()][i] + GameText.missileText[gameOptions.getLanguage()][29]);
-            } else {
-                System.out.println(i+1 + ". " + GameText.missileText[gameOptions.getLanguage()][i] + GameText.missileText[gameOptions.getLanguage()][28]);
-            }
-        }
-        userSelection = selectMissile();
-        x = setCoordinate();
-        y = setCoordinate();
-
-        shootMissile(userSelection, randomMap, gameMap, x, y);
-    }
 
     /**
      * Ask to select a missile and return it´s value only if it´s ready to shoot
@@ -302,16 +281,27 @@ public class Game {
 
         try{
             do {
+
+                System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][6]); // "Select missile: "
+                
+                for(int k = 0; k < gameMissiles.length; k++){
+                    if(gameMissiles[k].isReady()){
+                        System.out.println((gameMissiles[k].getHash() - 1999) + ". " + GameText.missileText[gameOptions.getLanguage()][29] + gameMissiles[k].getName()); // "Ready       " + "gameMissiles[k].getName()"
+                    } else {
+                        System.out.println((gameMissiles[k].getHash() - 1999) + ". " + GameText.missileText[gameOptions.getLanguage()][28] + gameMissiles[k].getName()); // "Loading...  " + "gameMissiles[k].getName()"
+                    }
+                }
+
                 selectedMissile = sc.nextInt();
+                // ? WAS OR ||
                 if (selectedMissile <= gameMissiles.length || selectedMissile > 1) {
-                    for (int i = 0; i < gameMissiles.length; i++) {   
+                    for (int i = 0; i < gameMissiles.length; i++) {
+                        // ! heres is the error
                         if ((gameMissiles[i].getHash() - 1999) == selectedMissile) {
                             if (gameMissiles[i].isReady() == true) {
                                 availableMissile = true;
                                 break;
                             }
-                        } else {
-                            System.out.println(GameText.missileText[gameOptions.getLanguage()][i] + GameText.missileText[gameOptions.getLanguage()][28].toUpperCase());
                         }
                     }
                 } else {
@@ -320,12 +310,74 @@ public class Game {
             } while (availableMissile == false);
         }
         catch (Exception e) {
-            selectedMissile = selectMissile();            
+            selectedMissile = selectMissile();
         }
         return selectedMissile;
     }
 
-    
+
+    // ! NOT COMPLETED YET --------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Display a basic Missile menu that shows all the missiles and if it´s ready or if it´s ready to shoot now
+     */
+    public void missileMenu(){
+        sc = new Scanner(System.in);
+        int userSelection;
+        int x, y;
+
+        gameMissiles[2].setReady(true);
+        userSelection = selectMissile() - 1;
+
+        // SETTING SHOOT COORDINATES
+        System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][3]); // "Introduce X coordinate"
+        x = setCoordinate();
+        System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][4]); // "Introduce Y coordinate"
+        y = setCoordinate();
+
+        shootMissile(gameMissiles[userSelection], randomMap, x, y);
+    }
+
+
+    /**
+     * Shoots the "missile" into the rivals map
+     * @param missile
+     * @param rivalMap
+     * @param x
+     * @param y
+     */
+    // ? IT´S FUNCTIONAL, BUT NEED SOME IMPROVEMENTS
+    public void shootMissile(Missile missile, Map rivalMap, int x, int y) {
+
+        // ! LÓGICA CHIDA
+        // Game map or machine map
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                try {
+                    if (missile.effectZone[i][j] !=0) {
+                        // x + i - 3 Beacuse:
+                        // -2 by to put x, y to be the middle of the effectZone
+                        // -1 cause the matrix starts counting in 0, so when you select (1, 1) to the matrix it will be (0, 0)
+                        rivalMap.getMatrix()[x + i - 3][y + j - 3][0] = (byte)missile.effectZone[i][j];
+                    }
+                } catch (Exception e) {}
+            }
+        }
+        // System.out.println();
+        // ! COMMENT LATER, JUST TO SEE THE RESULT OF THE METHOD 
+        rivalMap.showMap();
+
+    }
+ 
+
+    // ! NEEDS THIS TO FUTURE IMPROVEMENTS
+    public int verifyShoot(int x, int y) {
+        int shipType = 0;        
+
+        return shipType;
+    }
+
+
     /**
      * Switch the turn between the player an the machine
      */
@@ -336,25 +388,12 @@ public class Game {
 
     public void shootMissile(Missile missile, Map rivalMap, Map shootMap, int x, int y){
 
-        // ! LÓGICA CHIDA
-        // Game map or machine map
+        // ! lógica pitera que ni sirve xd
+        int[][] damage = new int[5][5];
+
         for (int i = x - 2; i < x + 2; i++) {
             for (int j = y - 2; j < y + 2; j++) {
-                if(i < 1 || j < 1 || i > gameMap.getMapSize() || j > gameMap.getMapSize()){
-                    if (shootMap.getMatrix()[i][j][1] == 0) {
-                        shootMap.getMatrix()[i][j][1] = (byte)missile.getEffectZone()[i+2][j+2];
-                    }
-                }
-            }
-        }
-
-
-
-        int[][] damage = new int[5][5];
-        
-        for(int i = x - 2; i < x + 2; i++){
-            for(int j = y - 2; j < y - 2; j++){
-                if(i < 1 || j < 1 || i > gameMap.getMapSize() || j > gameMap.getMapSize()){
+                if (i < 1 || j < 1 || i > gameMap.getMapSize() || j > gameMap.getMapSize()) {
                     damage[i][j] = 0;
                 } else if (rivalMap.getMatrix()[i][j][0] != 0){
                     damage[i][j] = 1;
@@ -363,11 +402,7 @@ public class Game {
                 }
             }
         }
-
-
-
     }
-
 
 
     // ! ----------------------------------------------------------------------------------------------------------------------------------------------------------------

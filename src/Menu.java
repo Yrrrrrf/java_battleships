@@ -13,13 +13,13 @@ public class Menu {
     }
     
     
-    public Menu(int size){
-        mainOptions = new Options(size);
+    public Menu(int size, int language){
+        mainOptions = new Options(size, language);
     }
 
 
     /**
-     * Initial languaje selecction menu
+     * Initial language selecction menu
      */
     public void selectLanguage() {
 
@@ -58,6 +58,7 @@ public class Menu {
         }
     }
 
+
     /**
      * Clear all the code of the termianl written before
      */
@@ -76,7 +77,7 @@ public class Menu {
             do {
                 System.out.println("\n"  +  GameText.menuText[mainOptions.getLanguage()][1].toUpperCase() + "\n"); // "BATTLESHIPS"
                 System.out.println("1. " +  GameText.menuText[mainOptions.getLanguage()][2]); // "Play"
-                System.out.println("2. Set computer ships");
+                System.out.println("2. Test shoot method");
                 // System.out.println("2. " +  GameText.menuText[mainOptions.getLanguage()][3]); // "Options"
                 System.out.println("3. " +  GameText.menuText[mainOptions.getLanguage()][4]); // "Credits"
                 System.out.println("4. " +  GameText.menuText[mainOptions.getLanguage()][5] + "\n"); // "Exit"
@@ -90,9 +91,11 @@ public class Menu {
                         mainGame.setShipPosition();
                         mainGame.setRandomShips();
                         break;
-                    case 2:
+                        case 2:
                         mainGame = new Game(mainOptions);
+                        // mainGame.setRandomShips();
                         mainGame.setRandomShips();
+                        mainGame.missileMenu();
                         break;
                     case 3:
                         break;

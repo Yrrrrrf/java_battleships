@@ -11,8 +11,9 @@ public class Options {
      * Assign the dimentions gived by the Menu(int size) method to the gameMap[][][]
      * @param size
      */
-    public Options(int size){
+    public Options(int size, int language){
         setSize(size);
+        setLanguage(language);
     }
 
     

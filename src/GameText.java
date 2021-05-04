@@ -1,5 +1,5 @@
 // All the game text used in the different languajes
-// Abstract class allow us to call it without create an "GameText" object
+// Abstract class allow us to call it without create a "GameText" object
 public class GameText {
 
     public static String[][] gameText;
@@ -21,14 +21,14 @@ public class GameText {
         optionsText = new String[4][20];
 
 
-        // ? AUTHORS --------------------------------------------------------------------------------------------------------------------------------
+        // ? AUTHORS ------------------------------------------------------------------------------
         gameText[0][0] = "Reza Campos Fernando Bryan";     
         gameText[1][0] = "Álvaro Rodela Leonardo de Jesús";
         gameText[2][0] = "Go back";
         gameText[3][0] = "Goodbye";
 
 
-        // ? MENU TEXT ------------------------------------------------------------------------------------------------------------------------------
+        // ? MENU TEXT ----------------------------------------------------------------------------
         menuText = new String[4][20];
         
         menuText[0][1] = "Batalla Naval";
@@ -82,7 +82,7 @@ public class GameText {
         menuText[3][10] = "";
         
 
-        // ? COORDINATES MESSAGES--------------------------------------------------------------------------------------------------------------------
+        // ? COORDINATES MESSAGES------------------------------------------------------------------
         coordinatesText = new String[4][7];
                 
         coordinatesText[0][0] = "Vas a colocar el ";
@@ -121,7 +121,7 @@ public class GameText {
         coordinatesText[3][6] = "";
 
 
-        // ? ERROR MESSAGES -----------------------------------------------------------------------------------------------------------------------
+        // ? ERROR MESSAGES -----------------------------------------------------------------------
         errorText = new String[4][5];
         
         //* MOST USED ERROR MESSAGE
@@ -151,7 +151,7 @@ public class GameText {
         errorText[3][4] = "";
 
 
-        // ? SHIP NAMES -----------------------------------------------------------------------------------------------------------------------------
+        // ? SHIP NAMES ---------------------------------------------------------------------------
         shipText = new String[4][10];
         // HASH 1000
         shipText[0][0] = "Buque";
@@ -214,7 +214,7 @@ public class GameText {
         shipText[3][9] = "";
 
         
-        // ? MISSILE TEXT ---------------------------------------------------------------------------------------------------------------------------
+        // ? MISSILE TEXT -------------------------------------------------------------------------
         missileText = new String[4][30];
         
         // HASH 2000
@@ -370,13 +370,13 @@ public class GameText {
         missileText[2][27] = "";
         missileText[3][27] = "";
         
-        missileText[0][28] = "Cargando";
-        missileText[1][28] = "Loading";
+        missileText[0][28] = "Cargando... ";
+        missileText[1][28] = "Loading...  ";
         missileText[2][28] = "";
         missileText[3][28] = "";
         
-        missileText[0][29] = "Listo";
-        missileText[1][29] = "Ready";
+        missileText[0][29] = "Listo       ";
+        missileText[1][29] = "Ready       ";
         missileText[2][29] = "";
         missileText[3][29] = "";
     }
