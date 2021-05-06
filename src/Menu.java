@@ -35,6 +35,7 @@ public class Menu {
                 System.out.println("3. Deutsch");
                 System.out.println("4. русский");
 
+                System.out.print("-> ");
                 userInput = sc.nextInt();
                 selectLanguage = true;
 
@@ -80,22 +81,18 @@ public class Menu {
                 System.out.println("2. Test shoot method");
                 // System.out.println("2. " +  GameText.menuText[mainOptions.getLanguage()][3]); // "Options"
                 System.out.println("3. " +  GameText.menuText[mainOptions.getLanguage()][4]); // "Credits"
-                System.out.println("4. " +  GameText.menuText[mainOptions.getLanguage()][5] + "\n"); // "Exit"
+                System.out.println("4. " +  GameText.menuText[mainOptions.getLanguage()][5]); // "Exit"
 
+                System.out.print("-> ");
                 userInput = sc.nextInt();
                 selectOption = true;
 
                 switch(userInput){
                     case 1: 
                         mainGame = new Game(mainOptions);
-                        mainGame.setShipPosition();
-                        mainGame.setRandomShips();
+                        mainGame.runGame();
                         break;
-                        case 2:
-                        mainGame = new Game(mainOptions);
-                        // mainGame.setRandomShips();
-                        mainGame.setRandomShips();
-                        mainGame.missileMenu();
+                    case 2:
                         break;
                     case 3:
                         break;

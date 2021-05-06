@@ -83,7 +83,7 @@ public class GameText {
         
 
         // ? COORDINATES MESSAGES------------------------------------------------------------------
-        coordinatesText = new String[4][7];
+        coordinatesText = new String[4][8];
                 
         coordinatesText[0][0] = "Vas a colocar el ";
         coordinatesText[1][0] = "You are going to put ";
@@ -119,6 +119,11 @@ public class GameText {
         coordinatesText[1][6] = "Select missile: ";
         coordinatesText[2][6] = "";
         coordinatesText[3][6] = "";
+
+        coordinatesText[0][7] = "Impacto exitoso en ";
+        coordinatesText[1][7] = "Succesful impact in ";
+        coordinatesText[2][7] = "";
+        coordinatesText[3][7] = "";
 
 
         // ? ERROR MESSAGES -----------------------------------------------------------------------

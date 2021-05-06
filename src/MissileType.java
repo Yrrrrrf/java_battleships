@@ -17,14 +17,7 @@ public enum MissileType {
                 "01110" +
                 "00100" +
                 "00000", 5, 2002),
-
-    // SMALLT     ("00100" + 
-    //             "00100" +
-    //             "11111" +
-    //             "00100" +
-    //             "00100", 5, 2002),
     
-
     // 16 X 16
     HORSE      ("01010" + 
                 "10001" +
@@ -64,17 +57,17 @@ public enum MissileType {
                 "01110", 22, 2008);
 
     //String effectString;
-    int[][] effectZone;
+    byte[][] effectZone;
     int cooldown;
     int hash;
                 
             
     MissileType(String effectString, int cooldown, int hash){
-        effectZone = new int[5][5];
+        effectZone = new byte[5][5];
 
         for(int i = 0; i < 5; i++){
             for(int j = 0; j < 5; j++){
-                if(effectString.charAt(i*5+j) == '0'){
+                if(effectString.charAt(5*i + j) == '0'){
                     this.effectZone[i][j] = 0;
                 } else {
                     this.effectZone[i][j] = 1;
@@ -86,7 +79,11 @@ public enum MissileType {
     }
 
     // * GETTERS
-    public int[][] getEffectZone() {return effectZone;}
+    public byte[][] getEffectZone() {return effectZone;}
+
+    public int getCooldown() {return cooldown;}
+
+    public int getHash() {return hash;}
 
 
 

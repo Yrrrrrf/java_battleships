@@ -44,7 +44,7 @@ public class Map extends Menu{
             for (int j = 0; j < mapSize; j++) {
                 System.out.printf("%-3d", matrix[j][i][0]);
             }
-            System.out.print("              ");
+            System.out.print("     ");
             for (int j = 0; j < mapSize; j++) {
                 System.out.printf("%-3d", matrix[j][i][1]);
             }
