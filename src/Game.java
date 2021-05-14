@@ -33,8 +33,13 @@ public class Game {
         // setShipsPostions();
         setRandomShips(players[0].getMap(), players[0].getShips());
         setRandomShips(players[1].getMap(), players[1].getShips());
-        clearScreen();
+        //clearScreen();
         players[0].getMap().showTwoMaps();
+
+
+
+
+
         gameLoop(players[0], players[1]);
     }
 
@@ -339,25 +344,30 @@ public class Game {
     
     public void gameLoop(Player player, Player computer){
         sc = new Scanner(System.in);
-        while(player.getDestroyedShips() != player.getShips().length && computer.getDestroyedShips() != computer.getShips().length){
+        //  while(player.getDestroyedShips() != player.getShips().length || computer.getDestroyedShips() != computer.getShips().length){
 
             setMissilesCooldown(player.getMissiles());
             setMissilesCooldown(computer.getMissiles());
 
-            clearScreen();
             playerTurn(player.getMissiles(), player.getMap(), computer.getMap(), player.getShips(), computer.getShips());
             evaluateShipsDamage(computer);
 
             computerTurn(computer.getMissiles(), computer.getMap(), player.getMap(), computer.getShips(), player.getShips());
             evaluateShipsDamage(player);
-        }
-        if(computer.getDestroyedShips() == computer.getShips().length){
-            clearScreen();
-            System.out.println("\nYou won.\n");
-        } else if (player.getDestroyedShips() == player.getShips().length){
-            clearScreen();
-            System.out.println("\nThe computer won.\n");
-        }
+
+            System.out.println("Player Map");
+            player.getMap().showTwoMaps();
+            System.out.println("\nRival Map");
+            computer.getMap().showTwoMaps();
+
+        // }
+        // if(computer.getDestroyedShips() == computer.getShips().length){
+        //     //clearScreen();
+        //     System.out.println("\nYou won.\n");
+        // } else if (player.getDestroyedShips() == player.getShips().length){
+        //     //clearScreen();
+        //     System.out.println("\nThe computer won.\n");
+        // }
     }
 
         
@@ -367,8 +377,8 @@ public class Game {
         
         userSelection = selectMissile(playerMap, playerMissiles);
             
-        clearScreen();
-        playerMap.showTwoMaps();
+        //clearScreen();
+        //playerMap.showTwoMaps();
         
         // SETTING SHOOT COORDINATES
         System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][3]); // "Introduce X coordinate"
@@ -378,6 +388,7 @@ public class Game {
 
         shootMissile(playerMissiles[userSelection], playerMap, computerMap, computerShips, x, y);
     }
+    
     
     public void computerTurn(Missile[] computerMissiles, Map computerMap, Map playerMap, Ship[] computerShips, Ship[] playerShips) {
         Random random = new Random();
@@ -395,12 +406,13 @@ public class Game {
             }
         } while(availableMissile == false);
 
-        values[1] = random.nextInt(playerMap.getMapSize()) + 1;
-        values[2] = random.nextInt(playerMap.getMapSize()) + 1;
+        values[1] = random.nextInt(playerMap.getMapSize()) + 1; // x
+        values[2] = random.nextInt(playerMap.getMapSize()) + 1; // y
 
-        shootMissile(computerMissiles[0], computerMap, playerMap, playerShips, values[1], values[2]);
+        shootMissile(computerMissiles[values[0]], computerMap, playerMap, playerShips, values[1], values[2]);
     }
     
+
     public void evaluateShipsDamage(Player player) {
         
         for(int i = 0; i < player.getShips().length; i++) {
@@ -415,162 +427,65 @@ public class Game {
     
     
     public void shootMissile(Missile missile, Map shooterMap, Map rivalMap, Ship[] rivalShips, int x, int y) {
-        int xIndex = 0;
-        int yIndex = 0;
-        for(int i = 0; i < 5; i++){
-            for(int j = 0; j < 5; j++){
-                xIndex = (x-1) + i - 2;
-                yIndex = (y-1) + j - 2;
-                if(xIndex < 1 || yIndex < 1 || xIndex > rivalMap.getMapSize() || yIndex > rivalMap.getMapSize()){
-                    continue;
-                } else {
-                    if (shooterMap.getMatrix()[xIndex][yIndex][1] == 0) {
-                        shooterMap.getMatrix()[xIndex][yIndex][1] = missile.getEffectZone()[i][j];
+        // int xIndex = 0;
+        // int yIndex = 0;
+        // for(int i = 0; i < 5; i++) {
+        //     for(int j = 0; j < 5; j++) {
+        //         xIndex = (x-1) + i - 2;  //x+i-3
+        //         yIndex = (y-1) + j - 2;  //y+j-3
+        //         if(xIndex < 1 || yIndex < 1 || xIndex >= rivalMap.getMapSize() || yIndex >= rivalMap.getMapSize()){
+        //             //continue;
+        //         } else {
+        //             if (shooterMap.getMatrix()[xIndex][yIndex][1] == 0) {
+        //                 shooterMap.getMatrix()[xIndex][yIndex][1] = missile.getEffectZone()[i][j];
+        //             }
+        //         }
+        //     }
+        // }
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                try {
+                        // x + i - 3 Beacuse:
+                        // -2 by to put x, y to be the middle of the effectZone
+                        // -1 cause the matrix starts counting in 0, so when you select (1, 1) to the matrix it will be (0, 0)
+                    if (missile.effectZone[i][j] !=0) {
+                        shooterMap.getMatrix()[x + i - 3][y + j - 3][1] = (byte)missile.getEffectZone()[i][j];
                     }
-                }
+                    if (rivalMap.getMatrix()[x + i - 3][y + j - 3][0] != 0) {
+                        rivalMap.getMatrix()[x + i - 3][y + j - 3][0] = (byte)-missile.getEffectZone()[i][j];
+                    }
+                } catch (Exception e) {}
             }
         }
-        
+
+
+        // 
+
         for(int i = x - 2; i <= x + 2; i++) {
             for(int j = y - 2; j <= y - 2; j++) {
                 
-                if(i < 1 || j < 1 || i > rivalMap.getMapSize() || j > rivalMap.getMapSize()) {
+                if(i < 1 || j < 1 || i >= rivalMap.getMapSize() || j >= rivalMap.getMapSize()) {
                     continue;
                 } else if (rivalMap.getMatrix()[i][j][0] != 0) {
-                    for(int a = 1; a <= rivalShips.length; a++){
-                        
-                        if(a == rivalMap.getMatrix()[i][j][0]){
-                            
-                            System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][7] +
-                            GameText.shipText[gameOptions.getLanguage()][rivalShips[a-1].getType().getHash()-1000] +
-                            "(" + rivalShips[a-1].getType().getLength() + " x " + rivalShips[a-1].getType().getWidth() + ")");
-                            
-                            rivalShips[a-1].sufferDamage();
-                        }
+                    int a = rivalMap.getMatrix()[i][j][0];
+
+                    // for(int a = 1; a <= rivalShips.length; a++){                        
+                    //     if(a == rivalMap.getMatrix()[i][j][0]){
+                    System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][7] +
+                    GameText.shipText[gameOptions.getLanguage()][rivalShips[a-1].getType().getHash()-1000] +
+                    " (" + rivalShips[a-1].getType().getLength() + " x " + rivalShips[a-1].getType().getWidth() + ")");
+                    
+                    rivalShips[a-1].sufferDamage();
                     }
-                    rivalMap.getMatrix()[i][j][0] = -1;
-                shooterMap.getMatrix()[i][j][1] = -1;
-                } else {
-                    continue;
-                }
+                    //}
+                    // } else {
+                    //     continue;
+                    // }
             }
         }
-        clearScreen();
-        shooterMap.showTwoMaps();
-
-        clearScreen();
-        rivalMap.showTwoMaps();
+        //clearScreen();
     }
-    // /**
-    //  * Display a basic Missile menu that shows all the missiles and if it´s ready or if it´s ready to shoot now
-    //  */
-    // public void missileMenu(Missile[] playerMissiles, Missile[] computerMissiles, Map playerMap, Map computerMap, Ship[] playerShips, Ship[] computerShips){
-
-    //     setMissileCooldown(playerMissiles);
-    //     setMissileCooldown(computerMissiles);
-
-        
-    // }
-    
-    /**
-     * Shoots the "missile" into the rivals map
-     * @param missile
-     * @param rivalMap
-     * @param x
-     * @param y
-     */
-    // ? IT´S FUNCTIONAL, BUT NEED SOME IMPROVEMENTS
-    // public void shootMissile(Missile missile, Map rivalMap, int x, int y) {
-        
-        //     // ! LÓGICA CHIDA
-        //     // Game map or machine map
-        //     for (int i = 0; i < 5; i++) {
-            //         for (int j = 0; j < 5; j++) {
-                //             try {
-                    //                 if (missile.effectZone[i][j] !=0) {
-                        //                     // x + i - 3 Because:
-                        //                     // -2 by to put x, y to be the middle of the effectZone
-                        //                     // -1 cause the matrix starts counting in 0, so when you select (1, 1) to the matrix it will be (0, 0)
-                        //                     rivalMap.getMatrix()[x + i - 3][y + j - 3][0] = missile.effectZone[i][j];
-                        //                 }
-                        //             } catch (Exception e) {}
-                        //         }
-    //     }
-    //     // System.out.println();
-    //     // ! COMMENT LATER, JUST TO SEE THE RESULT OF THE METHOD 
-    //     rivalMap.showMap();
-
-    // }
- 
-
-    // // ! NEEDS THIS TO FUTURE IMPROVEMENTS
-    // public int verifyShoot(int x, int y) {
-    //     int shipType = 0;        
-
-    //     return shipType;
-    // }
-
-
-    /**
-     * Switch the turn between the player an the machine
-     */
-    
-        // switch (rivalMap.getMatrix()[i][j][0]) {
-        //     case 1:
-        //     System.out.println( GameText.coordinatesText[gameOptions.getLanguage()][7] + 
-        //                         GameText.shipText[gameOptions.getLanguage()][ShipType.VESSEL.getHash()-1000] + 
-        //                         "(" + ShipType.VESSEL.getLength() + " x " + ShipType.VESSEL.getWidth() + ")"); // "You have just hit: " + ship.name + "(" + ship.length + ")"
-        //         break;
-        //     case 2:
-        //     System.out.println( GameText.coordinatesText[gameOptions.getLanguage()][7] + 
-        //                         GameText.shipText[gameOptions.getLanguage()][ShipType.FRIGATE.getHash()-1000] + 
-        //                         "(" + ShipType.FRIGATE.getLength() + " x " + ShipType.FRIGATE.getWidth() + ")");
-        //         break;
-        //     case 3:
-        //     System.out.println( GameText.coordinatesText[gameOptions.getLanguage()][7] + 
-        //                         GameText.shipText[gameOptions.getLanguage()][ShipType.DESTROYER.getHash()-1000] + 
-        //                         "(" + ShipType.DESTROYER.getLength() + " x " + ShipType.DESTROYER.getWidth() + ")");
-        //         break;
-        //     case 4:
-        //     System.out.println( GameText.coordinatesText[gameOptions.getLanguage()][7] + 
-        //                         GameText.shipText[gameOptions.getLanguage()][ShipType.CRUISER.getHash()-1000] + 
-        //                         "(" + ShipType.CRUISER.getLength() + " x " + ShipType.CRUISER.getWidth() + ")");
-        //         break;
-        //     case 5:
-        //     System.out.println( GameText.coordinatesText[gameOptions.getLanguage()][7] + 
-        //                         GameText.shipText[gameOptions.getLanguage()][ShipType.CARRIER.getHash()-1000] + 
-        //                         "(" + ShipType.CARRIER.getLength() + " x " + ShipType.CARRIER.getWidth() + ")");
-        //         break;
-        //     default:
-        //         break;
-
-        // }
-        
-        // for (int i = 0; i < 5; i++) {
-        //     for (int j = 0; j < 5; j++) {
-        //         try {
-        //             if (missile.getEffectZone()[i][j] != 0) {
-        //                 // x + i - 3 Because:
-        //                 // -2 by to put x, y to be the middle of the effectZone
-        //                 // -1 cause the matrix starts counting in 0, so when you select (1, 1) to the matrix it will be (0, 0)
-        //                 rivalMap.getMatrix()[x + i - 3][y + j - 3][0] = missile.effectZone[i][j];
-        //             }
-
-        //             if (rivalMap.getMatrix()[i][j][0] != 0 && rivalMap.getMatrix()[i][j][0] != -1) {
-
-        //                 System.out.println( GameText.coordinatesText[gameOptions.getLanguage()][7] + 
-        //                 GameText.shipText[gameOptions.getLanguage()][rivalMap.getMatrix()[i][j][0] - 1] + 
-        //                 // ! SHOOTED PLAYER
-        //                 "(" + player.getShips()[rivalMap.getMatrix()[i][j][0] - 1] + ")"); // "You have just hit: " + ship.name + "(" + ship.length + ")"
-
-        //                 rivalMap.getMatrix()[i][j][0] = -1;
-        //                 shooterMap.getMatrix()[i][j][1] = -1;
-        //             }
-        //         } catch (Exception e) {}
-        //     }
-        // }
-    
-
 
     // ! ----------------------------------------------------------------------------------------------------------------------------------------------------------------
     
