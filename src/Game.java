@@ -5,14 +5,12 @@ import java.util.Random;
 public class Game {
  
     Options gameOptions;
-    
     Player[] players;
-
     Scanner sc;
 
 
     /**
-     * Start a new game this the Options that the user gives (using the Options class that can the cahnged in the Main Menu)
+     * Start a new game with the Options that the user gives (using the Options class that can the changed in the Main Menu)
      * <p>
      * Player vs Machine
      * <p>
@@ -28,23 +26,23 @@ public class Game {
             players[i] = new Player(gameOptions.getSize(), gameOptions.getLanguage());
         }
     }
+    
 
+    /**
+     * Runs the game
+     */
     public void runGame(){
         // setShipsPostions();
         setRandomShips(players[0].getMap(), players[0].getShips());
         setRandomShips(players[1].getMap(), players[1].getShips());
-        //clearScreen();
-        //players[0].getMap().showTwoMaps();
-        players[1].getMap().showTwoMaps();
-
         gameLoop(players[0], players[1]);
     }
 
 
     /**
-     * Puts all the ships in the map
+     * Places all the ships on the map
      * <p>
-     * Calls other functions to get only valid positons 
+     * Calls other functions to receive only valid positons 
      */
     public void setShipsPositions(Map map, Ship[] ships) {
         byte x, y;
@@ -56,14 +54,13 @@ public class Game {
             System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][0] + ships[i].getName()); // "You're going to put " + ship.name
 
             map.showMap();
-            // isVertical assign the value of reqwuestVertical
            isVertical = requestVertical(map);
            setShipOrientation(ships[i], isVertical);
 
             // SETTING RIGHT COORDINATES
-            System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][3]); // "Introduce X coordinate"
+            System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][3]);     // "Introduce X coordinate"
             x = setCoordinate(map);
-            System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][4]); // "Introduce Y coordinate"
+            System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][4]);     // "Introduce Y coordinate"
             y = setCoordinate(map);
             
             validPosition = evaluateShipPosition(map, ships[i], x, y);
@@ -75,7 +72,7 @@ public class Game {
                 clearScreen();
                 // To change a second time the value of a Ship, in case you put it in Vertical and in a position without space
                 if (isVertical == true) {setShipOrientation(ships[i], isVertical);}
-                System.out.println(GameText.errorText[gameOptions.getLanguage()][0]); // "Please, select a valid option"
+                System.out.println(GameText.errorText[gameOptions.getLanguage()][0]);       // "Please, select a valid option"
                 i--;
             }
         }
@@ -85,7 +82,7 @@ public class Game {
     /**
      * Change the Ship orientation
      * <p>
-     * Need a Ship that will be changed, and an isVertical value, gived by the 
+     * Need a Ship that will be changed, and an isVertical value, given by the 
      * @param ship
      * @param isVertical
      */
@@ -103,9 +100,9 @@ public class Game {
 
 
     /**
-     * Ask to the user the orientation of the Ship 
+     * Asks the user the orientation of the Ship 
      * <p>
-     * It will go into a loop until the user puts a value 1(true = Vertica) or 2(false = horizontal) 
+     * It will execute a loop until the user gives a value 1(true = vertical) or 2(false = horizontal) 
      * <p>
      * Auxiliar function, always called after setShipOrientation
      * @see Scanned Value == 1  || Scanned Value == 0
@@ -140,9 +137,9 @@ public class Game {
 
 
     /**
-     * Ask a integer value that cannot be less than 0 or greater than Map Size
+     * Asks for an integer value that cannot be lower than 0 or higher than Map Size
      * <p>
-     * It will go into a loop until the user puts a value that meets the parameters
+     * It will execute a loop until the user gives a value that meets the parameters
      * @since 0 < Scanned Value < Map Size
      */
     private byte setCoordinate(Map map){
@@ -175,7 +172,7 @@ public class Game {
 
 
     /**
-     * Evaluates if the ship can be in the gived position taking in account the Orientation
+     * Evaluates if the ship can be in the given position considering the Orientation
      * <p>
      * Auxiliar function, always called before adjustMapMatrix()
      * @param map
@@ -189,11 +186,7 @@ public class Game {
         boolean confirmedShip = false;
         
         // -1 is caused because the ship width/height should be counted from the value of x/y henceforth and not after it.
-        if(x - 1 + ship.getWidth() > map.getMapSize() || y - 1 + ship.getLength() > map.getMapSize()){
-
-
-            //System.out.println(ship.getName() + GameText.errorText[gameOptions.getLanguage()][2]); // ship.name + " out of the map limits"
-        } else {
+        if(!(x - 1 + ship.getWidth() > map.getMapSize() || y - 1 + ship.getLength() > map.getMapSize())){
             for (int i = x; i < x + ship.getWidth(); i++) {
                 for (int j = y; j < y + ship.getLength(); j++) {
                     if (map.getMatrix()[i-1][j-1][0] == 0) {
@@ -210,7 +203,7 @@ public class Game {
     
 
     /**
-     * Changes the Map Matrix to write the ShipValue in it
+     * Assigns different values for every ship on the Map Matrix
      * <p>
      * Always called before adjustMapMatrix()
      * @param map
@@ -229,7 +222,7 @@ public class Game {
 
 
     /**
-     * Generates random numbers to that the machine will use to put their ships in the map
+     * Generates random numbers that the machine will use to put its ships on the map
      */
     public void setRandomShips(Map map, Ship[] ships){
         Random random = new Random();
@@ -237,21 +230,19 @@ public class Game {
         boolean validPosition = false;
 
         for(int i = 0; i < ships.length; i++){
-
             values[0] = random.nextInt(10) + 1;
-            //System.out.println(values[0]);
-    
+
             if(values[0] > 5){                                                                              // VERTICAL
                 setShipOrientation(ships[i], true);
                 values[1] = random.nextInt(10) + 1;                                                         // X value
-                values[2] = random.nextInt(map.getMapSize() - ships[i].getLength() + 1) + 1;            // Y value
-
+                values[2] = random.nextInt(map.getMapSize() - ships[i].getLength() + 1) + 1;                // Y value
+            
             } else {                                                                                        // HORIZONTAL
                 setShipOrientation(ships[i], false);
-                values[1] = random.nextInt(map.getMapSize() - ships[i].getLength() + 1) + 1;            // X value
+                values[1] = random.nextInt(map.getMapSize() - ships[i].getLength() + 1) + 1;                // X value
                 values[2] = random.nextInt(10) + 1;                                                         // Y value
             }
-    
+
             validPosition = evaluateShipPosition(map, ships[i], values[1], values[2]);
 
             if (validPosition == true) {
@@ -260,16 +251,11 @@ public class Game {
                 i--;
             }
         }
-        // clearScreen();
-        // rivalMap.showTwoMaps();
     }
 
 
-    // ! ASSIGNED SPACE TO CREATE AND TEST NEW METHODS() ------------------------------------------------------------------------------------------------------------------
-
-
     /**
-     * Asks to select a missile and return it's value only if it's ready to shoot
+     * Asks for missile selection and return it's value only if it's ready to shoot
      * @return selectedMissile
      */
     public int selectMissile(Map map, Missile[] missiles) {
@@ -277,10 +263,10 @@ public class Game {
         boolean availableMissile = false;
         int selectedMissile = 0;
 
+        clearScreen();
+        map.showTwoMaps();
         try{
             do {
-                clearScreen();
-                map.showTwoMaps();
                 System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][6]); // "Select missile: "
                 
                 for(int k = 0; k < missiles.length; k++){
@@ -321,10 +307,13 @@ public class Game {
     }
 
 
-    // ! NOT COMPLETED YET --------------------------------------------------------------------------------------------------------------------------
-
-    public void setMissilesCooldown(Missile[] missiles) {
-
+    /**
+     * Change the missiles cooldown in every turn. When cooldown is == 0 the missile will be set as Ready
+     * <p>
+     * This function depends on gameLoop()
+     * @param missiles
+     */
+    private void setMissilesCooldown(Missile[] missiles) {
         for(int i = 0; i < missiles.length; i++){
             if(missiles[i].isReady() == false){
 
@@ -338,47 +327,55 @@ public class Game {
         }
     }
 
-    
+
+    /**
+     * Starts the game Loop that allows the players to shoot a missle on every turn
+     * @param player
+     * @param computer
+     */
     public void gameLoop(Player player, Player computer){
         sc = new Scanner(System.in);
-        //  while(player.getDestroyedShips() != player.getShips().length || computer.getDestroyedShips() != computer.getShips().length){
+        while(player.getDestroyedShips() != player.getShips().length && computer.getDestroyedShips() != computer.getShips().length){
 
             setMissilesCooldown(player.getMissiles());
             setMissilesCooldown(computer.getMissiles());
 
-            players[1].getMap().showTwoMaps();
-
+            clearScreen();
+            
+            System.out.println("Player Map");
+            player.getMap().showTwoMaps();
+            
             playerTurn(player.getMissiles(), player.getMap(), computer.getMap(), player.getShips(), computer.getShips());
             evaluateShipsDamage(computer);
 
             computerTurn(computer.getMissiles(), computer.getMap(), player.getMap(), computer.getShips(), player.getShips());
             evaluateShipsDamage(player);
+        }
 
-            System.out.println("Player Map");
-            player.getMap().showTwoMaps();
-            System.out.println("\nRival Map");
-            computer.getMap().showTwoMaps();
+        clearScreen();
 
-        // }
-        // if(computer.getDestroyedShips() == computer.getShips().length){
-        //     //clearScreen();
-        //     System.out.println("\nYou won.\n");
-        // } else if (player.getDestroyedShips() == player.getShips().length){
-        //     //clearScreen();
-        //     System.out.println("\nThe computer won.\n");
-        // }
+        if(computer.getDestroyedShips() == computer.getShips().length){
+            System.out.println("\nYou won.\n");
+        } else {
+            System.out.println("\nThe computer won.\n");
+        }
     }
 
-        
-    public void playerTurn(Missile[] playerMissiles, Map playerMap, Map computerMap, Ship[] playerShips, Ship[] computerShips) {
+
+    /**
+     * Allow the player to shoot a missile on the rival's map
+     * @param playerMissiles
+     * @param playerMap
+     * @param computerMap
+     * @param playerShips
+     * @param computerShips
+     */
+    private void playerTurn(Missile[] playerMissiles, Map playerMap, Map computerMap, Ship[] playerShips, Ship[] computerShips) {
         int userSelection;
         int x, y;
         
         userSelection = selectMissile(playerMap, playerMissiles);
-            
-        //clearScreen();
-        //playerMap.showTwoMaps();
-        
+
         // SETTING SHOOT COORDINATES
         System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][3]); // "Introduce X coordinate"
         x = setCoordinate(playerMap);
@@ -388,8 +385,16 @@ public class Game {
         shootMissile(playerMissiles[userSelection], playerMap, computerMap, computerShips, x - 1, y - 1);
     }
     
-    
-    public void computerTurn(Missile[] computerMissiles, Map computerMap, Map playerMap, Ship[] computerShips, Ship[] playerShips) {
+
+    /**
+     * Set a random available missile, and random shoot coordinates to the computer 
+     * @param computerMissiles
+     * @param computerMap
+     * @param playerMap
+     * @param computerShips
+     * @param playerShips
+     */
+    private void computerTurn(Missile[] computerMissiles, Map computerMap, Map playerMap, Ship[] computerShips, Ship[] playerShips) {
         Random random = new Random();
         int[] values = new int[3];
         boolean availableMissile = false;
@@ -412,8 +417,13 @@ public class Game {
     }
     
 
-    public void evaluateShipsDamage(Player player) {
-        
+    /**
+     * Verifies the damage done to each player's ship
+     * <p>
+     * Set it asDestroyed when the damage is the same as the ship area.
+     * @param player
+     */
+    private void evaluateShipsDamage(Player player) {
         for(int i = 0; i < player.getShips().length; i++) {
             if(player.getShips()[i].isDestroyed()){
                 continue;
@@ -424,75 +434,46 @@ public class Game {
         }
     }
     
-    
-    public void shootMissile(Missile missile, Map shooterMap, Map rivalMap, Ship[] rivalShips, int x, int y) {
-        // int xIndex = 0;
-        // int yIndex = 0;
-        // for(int i = 0; i < 5; i++) {
-        //     for(int j = 0; j < 5; j++) {
-        //         xIndex = (x-1) + i - 2;  //x+i-3
-        //         yIndex = (y-1) + j - 2;  //y+j-3
-        //         if(xIndex < 1 || yIndex < 1 || xIndex >= rivalMap.getMapSize() || yIndex >= rivalMap.getMapSize()){
-        //             //continue;
-        //         } else {
-        //             if (shooterMap.getMatrix()[xIndex][yIndex][1] == 0) {
-        //                 shooterMap.getMatrix()[xIndex][yIndex][1] = missile.getEffectZone()[i][j];
-        //             }
-        //         }
-        //     }
-        // }
 
+    /**
+     * Assigns values to both Maps (player and computer) according to the positions of the ships and the effect-zone of the missile
+     * The values represent map regions hit: 1 for "water" and a negative value for a ship.
+     * 
+     * @param missile
+     * @param shooterMap
+     * @param rivalMap
+     * @param rivalShips
+     * @param x
+     * @param y
+     */
+    private void shootMissile(Missile missile, Map shooterMap, Map rivalMap, Ship[] rivalShips, int x, int y) {
         for (int i = x - 2; i <= x + 2; i++) {
             for (int j = y - 2; j <= y + 2; j++) {
-
                 if (i < 0 || j < 0 || i > rivalMap.getMapSize() - 1 || j > rivalMap.getMapSize() - 1) {
                     continue;
                 } else {
-                    //System.out.println(rivalMap.getMatrix()[i][j][0]);
                     if (missile.effectZone[i-(x-2)][j-(y-2)] == 1) {
-
-                        if (rivalMap.getMatrix()[i][j][0] > 0) {           // If there's a not damaged ship part here
-
+                        if (rivalMap.getMatrix()[i][j][0] > 0) {                // If there's a not damaged ship part here
                             int a = rivalMap.getMatrix()[i][j][0] - 1;
 
-                            System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][7] + 
-                            GameText.shipText[gameOptions.getLanguage()][rivalShips[a-1].getType().getHash()-1000] + 
-                            " (" + rivalShips[a-1].getType().getLength() + " x " + rivalShips[a-1].getType().getWidth() + ")");
-                            
+                            // System.out.println(GameText.coordinatesText[gameOptions.getLanguage()][7] + 
+                            // GameText.shipText[gameOptions.getLanguage()][rivalShips[a].getType().getHash()-1000] + 
+                            // " (" + rivalShips[a].getType().getLength() + " x " + rivalShips[a].getType().getWidth() + ")");
+
                             rivalShips[a].sufferDamage();
 
-                            shooterMap.getMatrix()[i][j][1] = -1;           // The shooter hit a ship
-                            rivalMap.getMatrix()[i][j][0] = -1;             // The rival has been hit
-
+                            shooterMap.getMatrix()[i][j][1] = (byte)-(a+1);     // The shooter hit a ship
+                            rivalMap.getMatrix()[i][j][0] = -1;                 // The rival has been hit
                         } else {
-                            
                             shooterMap.getMatrix()[i][j][1] = 1;
-
                         }
                     }
                 }
             }
         }
-
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                try {
-                        // x + i - 3 Beacuse:
-                        // -2 to place x and y in the middle of the effectZone
-                    if (missile.effectZone[i][j] != 0) {
-                        shooterMap.getMatrix()[x + i - 2][y + j - 2][1] = missile.getEffectZone()[i][j];
-                    }
-                    if (rivalMap.getMatrix()[x + i - 2][y + j - 2][0] != 0) {
-                        rivalMap.getMatrix()[x + i - 2][y + j - 2][0] = missile.getEffectZone()[i][j];
-
-                    }
-                } catch (Exception e) {}
-            }
-        }
-        //clearScreen();
+        // To restart the missile cooldown
+        missile.setReady(false);
     }
-
-    // ! ----------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     
     // * SETTERS
@@ -509,10 +490,9 @@ public class Game {
     /**
      * Clear all the code of the termianl written before
      */
-    public void clearScreen() {
+    private void clearScreen() {
         System.out.print("\033[H\033[2J");  
         System.out.flush();  
     }
-
 
 }
