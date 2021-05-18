@@ -16,16 +16,33 @@ public class GameText {
 
     // Static values that belongs to the CLASS, not just to an object
     public static void setGameText(){
-        gameText = new String[4][1];
+        gameText = new String[4][4];
 
         optionsText = new String[4][20];
 
 
         // ? AUTHORS ------------------------------------------------------------------------------
-        gameText[0][0] = "Reza Campos Fernando Bryan";     
-        gameText[1][0] = "Álvaro Rodela Leonardo de Jesús";
+        gameText[0][0] = "Reza Campos Fernando Bryan";
+        //gameText[1][0] = "Alvaro Rodela Leonardo de Jesús";
+        gameText[1][0] = "Alvaro Rodela Leonardo de Jesus";
         gameText[2][0] = "Go back";
         gameText[3][0] = "Goodbye";
+
+        gameText[0][1] = "\nMapa del jugador";
+        gameText[1][1] = "\nPlayer Map";
+        gameText[2][1] = "\n";
+        gameText[3][1] = "\n";
+
+        gameText[0][2] = "\nGANASTE!";
+        gameText[1][2] = "\nYOU WIN!";
+        gameText[2][2] = "\n";
+        gameText[3][2] = "\n";
+
+        //gameText[0][3] = "\nGanó la máquina. Perdiste";
+        gameText[0][3] = "\nGano la maquina. Perdiste";
+        gameText[1][3] = "\nMachine wins. You lose";
+        gameText[2][3] = "\n";
+        gameText[3][3] = "\n";
 
 
         // ? MENU TEXT ----------------------------------------------------------------------------
@@ -33,52 +50,53 @@ public class GameText {
         
         menuText[0][1] = "Batalla Naval";
         menuText[1][1] = "Battleships";
-        menuText[2][1] = "Schlachtschiffe";
+        //menuText[2][1] = "Schlachtschiffe";
         menuText[3][1] = "";
         
         menuText[0][2] = "Jugar";
         menuText[1][2] = "Play";
-        menuText[2][2] = "Spielen";
+        //menuText[2][2] = "Spielen";
         menuText[3][2] = "";
         
         menuText[0][3] = "Opciones";
         menuText[1][3] = "Options";
-        menuText[2][3] = "Optionen";
+        //menuText[2][3] = "Optionen";
         menuText[3][3] = "";
         
         menuText[0][4] = "Creditos";
         menuText[1][4] = "Credits";
-        menuText[2][4] = "Kredite";
+        //menuText[2][4] = "Kredite";
         menuText[3][4] = "";
         
         menuText[0][5] = "Salir";
         menuText[1][5] = "Exit";
-        menuText[2][5] = "Beenden";
+        //menuText[2][5] = "Beenden";
         menuText[3][5] = "";
         
         menuText[0][6] = "Cambiar Tamaño";
         menuText[1][6] = "Change Size";
-        menuText[2][6] = "Größe Ändern";
+        //menuText[2][6] = "Größe Ändern";
         menuText[3][6] = "";
         
         menuText[0][7] = "Sonido";
         menuText[1][7] = "Sound";
-        menuText[2][7] = "Klang";
+        //menuText[2][7] = "Klang";
         menuText[3][7] = "";
         
         menuText[0][8] = "Efectos";
         menuText[1][8] = "Effects";
-        menuText[2][8] = "Effekte";
+        //menuText[2][8] = "Effekte";
         menuText[3][8] = "";
         
-        menuText[0][9] = "Música";
+        //menuText[0][9] = "Música";
+        menuText[0][9] = "Musica";
         menuText[1][9] = "Music";
-        menuText[2][9] = "Musik";
+        //menuText[2][9] = "Musik";
         menuText[3][9] = "";
 
         menuText[0][10] = "Cambiar Idioma";
         menuText[1][10] = "Change Language";
-        menuText[2][10] = "Sprache Ändern";
+        //menuText[2][10] = "Sprache Ändern";
         menuText[3][10] = "";
         
 
@@ -92,22 +110,23 @@ public class GameText {
 
         coordinatesText[0][1] = "Coloque el tamaño del escenario personalizado:";
         coordinatesText[1][1] = "Set the size of the custom scenario:";
-        coordinatesText[2][1] = "Setzen Sie die Größe des persönlichen Szenario:";
+        //coordinatesText[2][1] = "Setzen Sie die Größe des persönlichen Szenario:";
         coordinatesText[3][1] = "";
 
-        coordinatesText[0][2] = "Orientación:    Vertical = 1 ; Horizontal = 2";
+        //coordinatesText[0][2] = "Orientación:    Vertical = 1 ; Horizontal = 2";
+        coordinatesText[0][2] = "Orientacion:    Vertical = 1 ; Horizontal = 2";
         coordinatesText[1][2] = "Orientation:    Vertical = 1 ; Horizontal = 2";
-        coordinatesText[2][2] = "Orientation:    Senkrecht = 1 ; Waagerecht = 2";
+        //coordinatesText[2][2] = "Orientation:    Senkrecht = 1 ; Waagerecht = 2";
         coordinatesText[3][2] = "";
 
         coordinatesText[0][3] = "Introduzca coordenada en X:";
         coordinatesText[1][3] = "Introduce X coordinate:";
-        coordinatesText[2][3] = "Setzen Sie X Koordinate ein:";
+        //coordinatesText[2][3] = "Setzen Sie X Koordinate ein:";
         coordinatesText[3][3] = "";
 
         coordinatesText[0][4] = "Introduzca coordenada en Y:";
         coordinatesText[1][4] = "Introduce Y coordinate:";
-        coordinatesText[2][4] = "Setzen Sie Y Koordinate ein:";
+        //coordinatesText[2][4] = "Setzen Sie Y Koordinate ein:";
         coordinatesText[3][4] = "";
         
         coordinatesText[0][5] = "Lanzaste un ";
@@ -130,9 +149,10 @@ public class GameText {
         errorText = new String[4][5];
         
         //* MOST USED ERROR MESSAGE
-        errorText[0][0] = "Por favor, introduzca un dato válido.";
+        //errorText[0][0] = "Por favor, introduzca un dato válido.";
+        errorText[0][0] = "Por favor, introduzca un dato valido.";
         errorText[1][0] = "Please, select a valid option.";
-        errorText[2][0] = "Bitte, wähl ein stimmende Datum. ";
+        errorText[2][0] = "";
         errorText[3][0] = "";
         
         errorText[0][1] = "Coordenada no valida";
@@ -140,7 +160,8 @@ public class GameText {
         errorText[2][1] = "";
         errorText[3][1] = "";
 
-        errorText[0][2] = " está fuera de los límites del mapa";
+        //errorText[0][2] = " está fuera de los límites del mapa";
+        errorText[0][2] = " esta fuera de los limites del mapa";
         errorText[1][2] = " is out of the map limit";
         errorText[2][2] = "";
         errorText[3][2] = "";
@@ -161,31 +182,31 @@ public class GameText {
         // HASH 1000
         shipText[0][0] = "Buque";
         shipText[1][0] = "Vessel";        
-        shipText[2][0] = "Schiff";
+        //shipText[2][0] = "Schiff";
         shipText[3][0] = "";
         
         // HASH 1001
         shipText[0][1] = "Fragata";
         shipText[1][1] = "Frigate";
-        shipText[2][1] = "Fregatte";
+        //shipText[2][1] = "Fregatte";
         shipText[3][1] = "";
         
         // HASH 1002
         shipText[0][2] = "Destructor";
         shipText[1][2] = "Destroyer";
-        shipText[2][2] = "Zerstörer";
+        //shipText[2][2] = "Zerstörer";
         shipText[3][2] = "";
         
         // HASH 1003
         shipText[0][3] = "Crucero";
         shipText[1][3] = "Cruiser";
-        shipText[2][3] = "Kreuzer";
+        //shipText[2][3] = "Kreuzer";
         shipText[3][3] = "";
         
         // HASH 1004
         shipText[0][4] = "Portaaviones";
         shipText[1][4] = "Aircraft Carrier";
-        shipText[2][4] = "Flugzeugträger";
+        //shipText[2][4] = "Flugzeugträger";
         shipText[3][4] = "";
         
         // HASH 1016
@@ -247,7 +268,8 @@ public class GameText {
         missileText[3][3] = "";
 
         // HASH 2004
-        missileText[0][4] = "Corazón";
+        //missileText[0][4] = "Corazón";
+        missileText[0][4] = "Corazon";
         missileText[1][4] = "Heart";
         missileText[2][4] = "";
         missileText[3][4] = "";
@@ -271,7 +293,8 @@ public class GameText {
         missileText[3][7] = "";
 
         // HASH 2008
-        missileText[0][8] = "Círculo";
+        //missileText[0][8] = "Círculo";
+        missileText[0][8] = "Circulo";
         missileText[1][8] = "Circle";
         missileText[2][8] = "";
         missileText[3][8] = "";
@@ -385,4 +408,5 @@ public class GameText {
         missileText[2][29] = "";
         missileText[3][29] = "";
     }
+
 }

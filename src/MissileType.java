@@ -1,16 +1,18 @@
 public enum MissileType {
+    // MISSILE_NAME(Effect Zone, cooldown, hash)
+
     // 8 X 8
-    // SIMPLE     ("00000" + 
-    //             "00000" +
-    //             "00100" +
-    //             "00000" +
-    //             "00000", 0, 2000),
+    SIMPLE     ("00000" + 
+                "00000" +
+                "00100" +
+                "00000" +
+                "00000", 0, 2000),
     
-    SIMPLE     ("11111" + 
-                "11111" +
-                "11111" +
-                "11111" +
-                "11111", 0, 2000),
+    // SIMPLE     ("11111" + 
+    //             "11111" +
+    //             "11111" +
+    //             "11111" +
+    //             "11111", 0, 2000),
 
     CROSS      ("00000" + 
                 "01010" +
@@ -54,13 +56,14 @@ public enum MissileType {
                 "11111" +
                 "11111" +
                 "11111" +
-                "11111", 40, 2007),
+                "11111", 32, 2007),
     
     CIRCLE     ("01110" + 
                 "10001" +
                 "10101" +
                 "10001" +
                 "01110", 22, 2008);
+    
 
     //String effectString;
     byte[][] effectZone;
@@ -84,20 +87,12 @@ public enum MissileType {
         this.hash = hash;
     }
 
+
     // * GETTERS
     public byte[][] getEffectZone() {return effectZone;}
 
     public int getCooldown() {return cooldown;}
 
     public int getHash() {return hash;}
-
-
-
-
-
-
-
-
-
 
 }

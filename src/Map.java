@@ -78,4 +78,5 @@ public class Map extends Menu{
     
     public int getMapSize() {return this.mapSize;}
 
+    
 }

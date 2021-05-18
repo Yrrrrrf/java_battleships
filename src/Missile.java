@@ -2,19 +2,17 @@ public class Missile {
 
     private String name;
     public MissileType type;
-
     private int hash;
     private int cooldown;
-    public byte[][] effectZone;
-
     private boolean ready;
-
+    public byte[][] effectZone;
     
 
     Missile(){
         setReady(false);
     }
     
+
     /**
      * Set the gived parameters to create the Missile object that will be used in the Game() method
      * @param language
@@ -57,4 +55,4 @@ public class Missile {
     public byte[][] getEffectZone() {return this.effectZone;}
     
     public int getCooldown() {return this.cooldown;}
-}// // // // // // // // // // // // 
+}

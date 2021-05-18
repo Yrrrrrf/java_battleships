@@ -6,7 +6,6 @@ public class Ship {
     private int length;
     private int width;
     private int hash;
-    
     private boolean vertical;
 
     private int xCoordinate;
@@ -17,6 +16,7 @@ public class Ship {
 
 
     public Ship() {}
+
 
     public void sufferDamage(){
         damage++;

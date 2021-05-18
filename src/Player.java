@@ -3,16 +3,20 @@ public class Player {
     String name;
     String email;
     int age;
-
     Map map;
     Ship[] ships;
     Missile[] missiles;
-
     int destroyedShips;
 
 
     Player() {}
 
+
+    /**
+     * Creates the Player Object with his own ships and missiles
+     * @param mapSize
+     * @param language
+     */
     Player(int mapSize, int language) {
         map = new Map(mapSize);
         ships = new Ship[7];
@@ -40,6 +44,10 @@ public class Player {
         setDestroyedShips(0);
     }
 
+
+    /**
+     * Add +1 to the destroyed ships. To know when does the game ends
+     */
     public void destroyShip() {
         destroyedShips++;
     }
@@ -75,5 +83,6 @@ public class Player {
     public Missile[] getMissiles() {return this.missiles;}    
 
     public int getDestroyedShips() {return this.destroyedShips;}
+
 
 }
