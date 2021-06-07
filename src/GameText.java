@@ -1,30 +1,32 @@
 // All the game text used in the different languajes
 // Abstract class allow us to call it without create a "GameText" object
 public class GameText {
-
+    
+    // static values that belongs to the CLASS, not just to an object
     public static String[][] gameText;
     public static String[][] menuText;
     public static String[][] coordinatesText;
     public static String[][] errorText;
     public static String[][] shipText;
     public static String[][] missileText;
-
     public static String[][] optionsText;
+
     public static String[][] auxiliarText;
     public static String[][] additionalText;
     public static String[][] extraText;
 
-    // Static values that belongs to the CLASS, not just to an object
+    private static String redColor = "\033[31m";
+    private static String blueColor = "\033[34m";
+    private static String endColor = "\u001B[0m";
+    
     public static void setGameText(){
+        
+        // ? AUTHORS ------------------------------------------------------------------------------
         gameText = new String[4][4];
 
-        optionsText = new String[4][20];
-
-
-        // ? AUTHORS ------------------------------------------------------------------------------
-        gameText[0][0] = "Reza Campos Fernando Bryan";
+        gameText[0][0] = blueColor + "Reza Campos Fernando Bryan"       + endColor;
+        gameText[1][0] = blueColor + "Alvaro Rodela Leonardo de Jesus"  + endColor;
         //gameText[1][0] = "Alvaro Rodela Leonardo de Jesús";
-        gameText[1][0] = "Alvaro Rodela Leonardo de Jesus";
         gameText[2][0] = "Go back";
         gameText[3][0] = "Goodbye";
 
@@ -48,10 +50,10 @@ public class GameText {
         // ? MENU TEXT ----------------------------------------------------------------------------
         menuText = new String[4][20];
         
-        menuText[0][1] = "Batalla Naval";
-        menuText[1][1] = "Battleships";
-        //menuText[2][1] = "Schlachtschiffe";
-        menuText[3][1] = "";
+        menuText[0][1] = "Batalla Naval" + endColor;
+        menuText[1][1] = "Battleships" + endColor;
+        menuText[2][1] = "Schlachtschiffe" + endColor;
+        menuText[3][1] = "" + endColor;
         
         menuText[0][2] = "Jugar";
         menuText[1][2] = "Play";
@@ -73,32 +75,60 @@ public class GameText {
         //menuText[2][5] = "Beenden";
         menuText[3][5] = "";
         
-        menuText[0][6] = "Cambiar Tamaño";
-        menuText[1][6] = "Change Size";
-        //menuText[2][6] = "Größe Ändern";
+        menuText[0][6] = "Elige ";
+        menuText[1][6] = "Select ";
+        menuText[2][6] = "";
         menuText[3][6] = "";
-        
-        menuText[0][7] = "Sonido";
-        menuText[1][7] = "Sound";
-        //menuText[2][7] = "Klang";
-        menuText[3][7] = "";
-        
-        menuText[0][8] = "Efectos";
-        menuText[1][8] = "Effects";
-        //menuText[2][8] = "Effekte";
-        menuText[3][8] = "";
-        
-        //menuText[0][9] = "Música";
-        menuText[0][9] = "Musica";
-        menuText[1][9] = "Music";
-        //menuText[2][9] = "Musik";
-        menuText[3][9] = "";
 
-        menuText[0][10] = "Cambiar Idioma";
-        menuText[1][10] = "Change Language";
-        //menuText[2][10] = "Sprache Ändern";
-        menuText[3][10] = "";
-        
+
+        // ? OPTIONS TEXT--------------------------------------------------------------------------
+        optionsText = new String[4][20];
+
+        optionsText[0][0] = "Elige el parámetro a cambiar:";
+        optionsText[1][0] = "Select the parameter to change:";
+        optionsText[2][0] = "";
+        optionsText[3][0] = "";
+
+        optionsText[0][1] = "La configuración actual es: ";
+        optionsText[1][1] = "The actual configuration is: ";
+        optionsText[2][1] = "";
+        optionsText[3][1] = "";
+
+        optionsText[0][2] = "Español";
+        optionsText[1][2] = "English";
+        optionsText[2][2] = "Deutsch";
+        optionsText[3][2] = "Ruso";
+
+        optionsText[0][3] = "El nuevo tamaño del mapa es: ";
+        optionsText[1][3] = "The new map size is: ";
+        optionsText[2][3] = "";
+        optionsText[3][3] = "";
+
+        optionsText[0][4] = "Solo numeros pares, entre 8 y 64";
+        optionsText[1][4] = "Only pair numbers between 8 and 64";
+        optionsText[2][4] = "";
+        optionsText[3][4] = "";
+
+        optionsText[0][5] = "";
+        optionsText[1][5] = "";
+        optionsText[2][5] = "";
+        optionsText[3][5] = "";
+
+        optionsText[0][6] = "Idioma";
+        optionsText[1][6] = "Language";
+        optionsText[2][6] = "";
+        optionsText[3][6] = "";
+
+        optionsText[0][7] = "Tamaño de Mapa";
+        optionsText[1][7] = "Map Size";
+        optionsText[2][7] = "";
+        optionsText[3][7] = "";
+
+        optionsText[0][8] = "Cambiar ";
+        optionsText[1][8] = "Change ";
+        optionsText[2][8] = " ";
+        optionsText[3][8] = " ";
+
 
         // ? COORDINATES MESSAGES------------------------------------------------------------------
         coordinatesText = new String[4][8];
@@ -150,31 +180,30 @@ public class GameText {
         
         //* MOST USED ERROR MESSAGE
         //errorText[0][0] = "Por favor, introduzca un dato válido.";
-        errorText[0][0] = "Por favor, introduzca un dato valido.";
-        errorText[1][0] = "Please, select a valid option.";
-        errorText[2][0] = "";
-        errorText[3][0] = "";
+        errorText[0][0] = redColor + "Por favor, introduzca un dato valido" + endColor;
+        errorText[1][0] = redColor + "Please, select a valid option"        + endColor;
+        errorText[2][0] = redColor + " "+ endColor;
+        errorText[3][0] = redColor + " "+ endColor;
         
-        errorText[0][1] = "Coordenada no valida";
-        errorText[1][1] = "Not valid coordinate";
-        errorText[2][1] = "";
-        errorText[3][1] = "";
+        errorText[0][1] = redColor + "Coordenada no valida"                 + endColor;
+        errorText[1][1] = redColor + "Not valid coordinate"                 + endColor;
+        errorText[2][1] = redColor + " " + endColor;
+        errorText[3][1] = redColor + " " + endColor;
 
-        //errorText[0][2] = " está fuera de los límites del mapa";
-        errorText[0][2] = " esta fuera de los limites del mapa";
-        errorText[1][2] = " is out of the map limit";
-        errorText[2][2] = "";
-        errorText[3][2] = "";
+        errorText[0][2] = redColor + " está fuera de los límites del mapa"  + endColor;
+        errorText[1][2] = redColor + " is out of the map limit"             + endColor;
+        errorText[2][2] = redColor + " " + endColor;
+        errorText[3][2] = redColor + " " + endColor;
 
-        errorText[0][3] = "";
-        errorText[1][3] = "";
-        errorText[2][3] = "";
-        errorText[3][3] = "";
+        errorText[0][3] = redColor + " " + endColor;
+        errorText[1][3] = redColor + " " + endColor;
+        errorText[2][3] = redColor + " " + endColor;
+        errorText[3][3] = redColor + " " + endColor;
 
-        errorText[0][4] = "";
-        errorText[1][4] = "";
-        errorText[2][4] = "";
-        errorText[3][4] = "";
+        errorText[0][4] = redColor + " " + endColor;
+        errorText[1][4] = redColor + " " + endColor;
+        errorText[2][4] = redColor + " " + endColor;
+        errorText[3][4] = redColor + " " + endColor;
 
 
         // ? SHIP NAMES ---------------------------------------------------------------------------

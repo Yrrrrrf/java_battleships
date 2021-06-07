@@ -268,11 +268,9 @@ public class Game {
                 
                 for(int k = 0; k < missiles.length; k++){
                     if(missiles[k].isReady()){
-                        System.out.println( (k+1) + ". " + missiles[k].getName() + "  " +
-                                            GameText.missileText[gameOptions.getLanguage()][29]);   // "Ready       " + "missiles[k].getName()"
+                        System.out.println( (k+1) + ". " + GameText.missileText[gameOptions.getLanguage()][29] + missiles[k].getName() + "  ");   // "Ready       " + "missiles[k].getName()"
                     } else {
-                        System.out.println( (k+1) + ". " + missiles[k].getName() +  "  " +
-                                            GameText.missileText[gameOptions.getLanguage()][28]);   // "Loading...  " + "missiles[k].getName()"
+                        System.out.println( (k+1) + ". " + GameText.missileText[gameOptions.getLanguage()][28] + missiles[k].getName() + "  ");   // "Loading...  " + "missiles[k].getName()"
                     }
                 }
 

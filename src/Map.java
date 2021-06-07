@@ -25,8 +25,17 @@ public class Map extends Menu{
      * The matrix have the form (x, y)
      */
     public void showMap(){
+
+        System.out.printf("%3s", " MAP ");
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.printf("%3d", (i + 1));
+        }
+
         for (int i = 0; i < mapSize; i++) {
             System.out.println();
+            System.out.printf("%3d", (i + 1));
+            System.out.print("- ");
+
             for (int j = 0; j < mapSize; j++) {
                 System.out.printf("%3d", matrix[j][i][0]);
             }
@@ -36,15 +45,32 @@ public class Map extends Menu{
 
 
     /**
-     * Shows the ships and the shooted missiles maps in the same line
+     * Shows the ships and the shooted missiles map
      */
     public void showTwoMaps(){
+        // FIRST LINE (GUIDE AND MAP TYPES)
+        System.out.printf("%3s", "SHIPS");
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.printf("%3d", (i + 1));
+        }
+        System.out.print("                ");
+        System.out.printf("%3s", "SHOTS");
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.printf("%3d", (i + 1));
+        }
+
+        // MATRIX DATA
         for (int i = 0; i < mapSize; i++) {
             System.out.println();
+            System.out.printf("%3d", (i + 1));
+            System.out.print(" |");
             for (int j = 0; j < mapSize; j++) {
                 System.out.printf("%3d", matrix[j][i][0]);
             }
-            System.out.print("     ");
+            
+            System.out.print("                ");
+            System.out.printf("%3d", (i + 1));
+            System.out.print(" |");
             for (int j = 0; j < mapSize; j++) {
                 System.out.printf("%3d", matrix[j][i][1]);
             }

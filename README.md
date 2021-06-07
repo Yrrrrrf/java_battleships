@@ -14,14 +14,15 @@ javac Main.java
 ## Options
 
 Play with default game options
+Change settings to play your own personalized game
 
 
 ## Upcoming
 
-- Change settings to play your own personalized game
-- Ship types
-- Missile Types
-- Beta: Radar Submarine gameMode
+- Select Ship and Missile Types that you´re  will use in the game
+- machineShoot algoritm
+- "real" mode: Shoot the number of times as the ships that you still have
+- Radar Submarine (gameMode): Use the special ship "Submaine" that will reveal the position of the enemy ships
 
 
 ## Contributing
